@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xukai · Personal Website</title>
+  <meta name="description" content="Xukai Zhao. PhD student at Tsinghua University School of Architecture. Research on AI and urban perception, agentic workflows, RAG, and multimodal urban analytics.">
+  <link rel="icon" href="assets/avatar.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand-mark">
+          <span class="brand-k">K</span>
+        </span>
+        <span class="brand-text">Kai</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#research">Research</a> 
+        <a href="#publications">Publications</a>
+        <a href="#urban">Urban Perception</a>
+        <a href="#honors">Honors</a>
+        <a href="#background">Background</a>
+        <a href="#patents">Patents</a>
+        <a class="nav-cta" href="#contact">Contact</a>
+        <a href="#skills">Skills</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1 class="reveal">Xukai Zhao</h1>
+          <p class="kicker reveal" style="font-size: 18px;margin-bottom: 0em;">Tsinghua University · PhD Student</p>
+          <p class="muted reveal">I work at the intersection of large language models and city scale data. My goal is to make urban perception measurable, traceable, and explainable by combining multimodal learning, agent based workflows, and retrieval grounded reasoning.</p>
+          <p class="muted reveal">I am especially interested in using social media texts and images together with street view, points of interest, remote sensing, and mobility signals to study how people perceive and use urban environments.</p>
+          <div class="hero-actions reveal" style="margin-top: 2em;">
+            <a class="btn primary" href="assets/Zhao_Xukai_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+            <a class="btn ghost" href="mailto:zhaoxk25@mails.tsinghua.edu.cn">Email</a>
+            <a class="btn ghost" href="https://scholar.google.com/citations?user=Ko8zceoAAAAJ&hl=zh-CN&oi=ao" target="_blank" rel="noopener">Google Scholar</a>
+          </div>
+
+        </div>
+
+        <div class="hero-media reveal">
+          <div class="avatar-card hover-lift">
+            <img src="assets/avatar.jpg" alt="Xukai Zhao" loading="eager">
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <span class="scroll-ring" aria-hidden="true"></span>
+        <span>Scroll down for more</span>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Skills</h2>
+          <!-- <p class="muted reveal">Programming, spatial analysis, and research tooling.</p> -->
+        </div>
+
+        <div class="skills-grid">
+          <div class="card reveal hover-lift">
+            <h3>Technical</h3>
+            <div class="pill-grid">
+              <span class="pill">NLP</span>
+              <span class="pill">Agentic pipeline</span>
+              <span class="pill">CV</span>
+              <span class="pill">RAG</span>
+              <span class="pill">Knowledge graph</span>
+              <span class="pill">Multimodal learning</span>
+              <span class="pill">Urban big data</span>
+            </div>
+          </div>
+
+          <div class="card reveal hover-lift">
+            <h3>Tools</h3>
+            <div class="pill-grid">
+              <span class="pill">Python</span>
+              <span class="pill">ArcGIS Pro</span>
+              <span class="pill">Adobe Photoshop</span>
+              <span class="pill">Adobe Illustrator</span>
+              <span class="pill">AutoCAD</span>
+              <span class="pill">Rhino</span>
+              <span class="pill">SketchUp</span>
+            </div>
+          </div>
+
+          <div class="card reveal hover-lift ielts-card">
+            <h3>IELTS</h3>
+            <div class="ielts-content">
+              <div class="ielts-overall">
+                <span class="ielts-label">Overall Score</span>
+                <span class="ielts-score">7.5</span>
+              </div>
+              <div class="ielts-breakdown">
+                <div class="ielts-item">
+                  <span class="ielts-skill">Listening</span>
+                  <span class="ielts-skill-score">8.5</span>
+                </div>
+                <div class="ielts-item">
+                  <span class="ielts-skill">Reading</span>
+                  <span class="ielts-skill-score">8.5</span>
+                </div>
+                <div class="ielts-item">
+                  <span class="ielts-skill">Writing</span>
+                  <span class="ielts-skill-score">7.0</span>
+                </div>
+                <div class="ielts-item">
+                  <span class="ielts-skill">Speaking</span>
+                  <span class="ielts-skill-score">6.5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    <!-- <section id="research" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Research</h2>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature reveal">
+            <div class="feature-title">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2l2 2h4a2 2 0 012 2v4a2 2 0 01-2 2h-1v2h1a2 2 0 012 2v4h-4v-3H9v3H5v-4a2 2 0 012-2h1v-2H8a2 2 0 01-2-2V6a2 2 0 012-2h4l2-2zM9 9a1 1 0 100 2 1 1 0 000-2zm6 0a1 1 0 100 2 1 1 0 000-2z"/>
+                </svg>
+              </span>
+              <h3>Agent based collaboration</h3>
+            </div>
+            <p class="muted">Break complex pipelines into parallel roles, covering evidence discovery, extraction, conflict handling, aggregation, and report generation.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="feature-title">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 5a3 3 0 116 0 3 3 0 01-6 0zm9 4a3 3 0 116 0 3 3 0 01-6 0zM5 15a3 3 0 116 0 3 3 0 01-6 0zm8.5-6.5l-2 2m7 3l-3 3M9 8l-3 4"/>
+                </svg>
+              </span>
+              <h3>RAG and knowledge graphs</h3>
+            </div>
+            <p class="muted">Extract evidence triples from unstructured reviews and literature, build searchable graphs, and support traceable question answering.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="feature-title">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 3l7 4-7 4-7-4 7-4zm0 7l7 4-7 4-7-4 7-4zm0 7l7 4-7 4-7-4 7-4z"/>
+                </svg>
+              </span>
+              <h3>Multi source urban data</h3>
+            </div>
+            <p class="muted">Combine social media, street view, points of interest, remote sensing, and mobility signals to quantify perceptions at scale.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="feature-title">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 19h16v2H4v-2zm2-10h3v7H6v-7zm5-4h3v11h-3V5zm5 6h3v5h-3v-5z"/>
+                </svg>
+              </span>
+              <h3>Interpretable modeling</h3>
+            </div>
+            <p class="muted">Use methods such as SHAP, partial dependence analysis, and visual attribution to make mechanisms transparent and reusable.</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="publications" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Publications</h2>
+          <!-- <p class="muted reveal">Each paper card reserves space for an image. Replace placeholders with your own figures.</p> -->
+        </div>
+
+        <div class="pub-toolbar reveal">
+          <div class="filters" role="tablist" aria-label="Publication filters">
+            <button class="chip active" data-filter="All" role="tab" aria-selected="true">All</button>
+            <button class="chip" data-filter="Agent and RAG" role="tab" aria-selected="false">Agent and RAG</button>
+            <button class="chip" data-filter="Benchmark" role="tab" aria-selected="false">Benchmark</button>
+            <button class="chip" data-filter="NLP and CV" role="tab" aria-selected="false">NLP and CV</button>
+            <button class="chip" data-filter="Other" role="tab" aria-selected="false">Other</button>
+          </div>
+
+          <div class="searchbox">
+            <label class="sr-only" for="pubSearch">Search publications</label>
+            <input id="pubSearch" type="search" placeholder="Search title, authors, venue, or keywords">
+            <div class="count" aria-live="polite"><span id="pubCount">0</span> items</div>
+          </div>
+        </div>
+
+        <div class="paper-grid" id="paperGrid">
+<article class="paper-card reveal" data-category="Agent and RAG">
+      <div class="paper-media">
+        <img src="assets/papers/2026_perception_visitation.jpg" alt="Figure placeholder for Perception and Visitation: Multi Scale Measurement and Driving Mechanisms of Tourism Attractiveness across 143 Cities" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Feb 2026</span> · <span class="paper-venue">Submitted to Nature Cities</span></div>
+          <div class="paper-category">Multi-agent</div>
+        </div>
+        <h3 class="paper-title"><a href="assets/pdfs/2026_perception_visitation.pdf" target="_blank" rel="noopener">From Perception to Visitation Multi-Scale Measurement and Driving Mechanisms of Tourism Attractiveness across 143 Chinese Cities</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, He Huang, Nan Bai, et al.</p>
+        <div class="tag-row"><span class="tag">Multi-agent</span><span class="tag">Tourism attractiveness</span><span class="tag">User-generated content</span><span class="tag">Large language model</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Tourism is a driver of urban vitality and sustainable development. As tourism attractiveness emerges from interactions among tourists, attractions, and supporting conditions, effective management requires understanding how attraction and supporting conditions influence tourists’ subjective evaluations (perceived attractiveness), and how these aspects together shape realized visitation (revealed attractiveness). However, existing studies rarely examine this full chain simultaneously across large-scale systems. Addressing this gap, we propose a tourist-centered framework to measure and interpret tourism attractiveness across 2,128 heritage attractions in 143 Chinese cities. Using 610,136 reviews, we quantify perceived attractiveness by aggregating eight cultural values extracted using a large language model pipeline (tolerance-1 accuracy=0.862), while proxying revealed attractiveness through review volume. We analyze both metrics at attraction, intra-city, and inter-city scales to investigate spatiotemporal patterns, and integrate attraction-, supporting-condition-, and city-level variables using XGBoost and SHAP to identify driving mechanisms. Results show that (1) both perceived and revealed attractiveness metrics exhibit a multi-core pattern clustered around Beijing, Shanghai, and Chengdu; (2) revealed attractiveness exhibits a distance-to-city-center decay and a polarized long-tail distribution; (3) major holidays increase visitation but diminish perceived attractiveness; (4) attraction-level attributes, especially official designation, visual quality, and ticket pricing, dominate both metrics but operate through different mechanisms; (5) positively perceived social, economic, scientific, historic and aesthetical values increase visitation, whereas political value is negatively associated; and (6) accessibility and spatial agglomeration contribute positively. Practically, multi-scale benchmarking and quadrant analyses identify underperforming attractions, while attraction-scale value profiles and mechanistic insights provide traceable evidence to support targeted strategies for sustainable tourism development.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Agent and RAG">
+      <div class="paper-media">
+        <img src="assets/papers/2025_cultural_values.png" alt="Figure placeholder for A multi agent large language model workflow for analyzing perceived cultural values from social media" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Oct 2025</span> · <span class="paper-venue">Submitted to Information Fusion</span></div>
+          <div class="paper-category">Agent and RAG</div>
+        </div>
+        <h3 class="paper-title"><a href="assets/pdfs/2025_cultural_values.pdf" target="_blank" rel="noopener">A multi agent large language model workflow for analyzing perceived cultural values from social media</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, Yuxing Lu, He Huang, et al.</p>
+        <div class="tag-row"><span class="tag">Multi-agent</span><span class="tag">Knowledge Graph</span><span class="tag">RAG</span><span class="tag">Tourism</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Heritage attractions are key urban assets that embody cultural values, shape local identity, and support economic development through tourism. Understanding the values the public perceives in these assets, and the reasons behind these perceptions from a bottom-up, public-centered perspective, is essential for evidence-based urban and heritage policy. Social media data (SMD) presents opportunities for such analysis, yet current methods struggle to scale to national coverage and to convert unstructured text into operational, decision-ready urban knowledge. To address these challenges, we introduce a multi-agent large language model workflow that identifies and quantifies eight cultural values from SMD and extracts supporting evidence to construct Cultural Heritage Perception Graphs (CHPGs), which structure and reveal the underlying reasons. Analyzing 284,030 online comments on 703 heritage attractions across 141 Chinese cities, we map how different cultural values are expressed, co-occur, and vary spatially across cities. The results highlight the prominence of aesthetical and social dimensions in public discourse, alongside more selective and context-dependent expressions of the other value dimensions. At the city level, overall perception scores correlate positively with comment volume, tourism revenue, and GDP per capita, revealing four distinct city profiles that can guide targeted management strategies. In practice, our CHPG-powered retrieval-augmented generation (RAG) system translates unstructured SMD into interactive, evidence-based insights, helping bridge the gap between public feedback and actionable decision making and supporting heritage management that is more responsive to public perception.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Agent and RAG">
+      <div class="paper-media">
+        <img src="assets/papers/2025_karma.png" alt="Figure placeholder for KARMA: Leveraging Multi Agent LLMs for Automated Knowledge Graph Enrichment" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Sep 2025</span> · <span class="paper-venue">NeurIPS 2025 Spotlight</span></div>
+          <div class="paper-category">Multi-agent</div>
+        </div>
+        <h3 class="paper-title"><a href="https://openreview.net/forum?id=k0wyi4cOGy" target="_blank" rel="noopener">KARMA: Leveraging Multi Agent LLMs for Automated Knowledge Graph Enrichment</a></h3>
+        <p class="paper-authors">Yuxing Lu, Wei Wu, <strong>Xukai Zhao</strong>, et al.</p>
+        <div class="tag-row"><span class="tag">Multi-agent</span><span class="tag">KG Enrichment</span><span class="tag">Automation</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Maintaining comprehensive and up-to-date knowledge graphs (KGs) is critical for modern AI systems, but manual curation struggles to scale with the rapid growth of scientific literature. This paper presents KARMA, a novel framework employing multi-agent large language models (LLMs) to automate KG enrichment through structured analysis of unstructured text. Our approach employs nine collaborative agents, spanning entity discovery, relation extraction, schema alignment, and conflict resolution that iteratively parse documents, verify extracted knowledge, and integrate it into existing graph structures while adhering to domain-specific schema. Experiments on 1,200 PubMed articles from three different domains demonstrate the effectiveness of KARMA in knowledge graph enrichment, with the identification of up to 38,230 new entities while achieving 83.1% LLM-verified correctness and reducing conflict edges by 18.6% through multi-layer assessments.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Agent and RAG">
+      <div class="paper-media">
+        <img src="assets/papers/2025_doctor_like.png" alt="Figure placeholder for Towards Doctor Like Reasoning: Medical RAG Fusing Knowledge with Patient Analogy through Textual Gradients" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Sep 2025</span> · <span class="paper-venue">NeurIPS 2025 Poster</span></div>
+          <div class="paper-category">Agent and RAG</div>
+        </div>
+        <h3 class="paper-title"><a href="https://openreview.net/forum?id=KPlskOuZ46" target="_blank" rel="noopener">Towards Doctor Like Reasoning: Medical RAG Fusing Knowledge with Patient Analogy through Textual Gradients</a></h3>
+        <p class="paper-authors">Yuxing Lu, Gecheng Fu, Wei Wu, <strong>Xukai Zhao</strong>, et al.</p>
+        <div class="tag-row"><span class="tag">Medical RAG</span><span class="tag">TextGrad</span><span class="tag">Multi Agent</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Existing medical RAG systems mainly leverage knowledge from medical knowledge bases, neglecting the crucial role of experiential knowledge derived from similar patient cases - a key component of human clinical reasoning. To bridge this gap, we propose DoctorRAG, a RAG framework that emulates doctor-like reasoning by integrating both explicit clinical knowledge and implicit case-based experience. DoctorRAG enhances retrieval precision by first allocating conceptual tags for queries and knowledge sources, together with a hybrid retrieval mechanism from both relevant knowledge and patient. In addition, a Med-TextGrad module using multi-agent textual gradients is integrated to ensure that the final output adheres to the retrieved knowledge and patient query. Comprehensive experiments on multilingual, multitask datasets demonstrate that DoctorRAG significantly outperforms strong baseline RAG models and gains improvements from iterative refinements. Our approach generates more accurate, relevant, and comprehensive responses, taking a step towards more doctor-like medical reasoning systems.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Agent and RAG">
+      <div class="paper-media">
+        <img src="assets/papers/2024_clinicalrag.jpg" alt="Figure placeholder for ClinicalRAG: Enhancing Clinical Decision Support through Heterogeneous Knowledge Retrieval" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Aug 2024</span> · <span class="paper-venue">ACL 2024 Workshop</span></div>
+          <div class="paper-category">RAG</div>
+        </div>
+        <h3 class="paper-title"><a href="https://aclanthology.org/2024.knowllm-1.6/" target="_blank" rel="noopener">ClinicalRAG: Enhancing Clinical Decision Support through Heterogeneous Knowledge Retrieval</a></h3>
+        <p class="paper-authors">Yuxing Lu, <strong>Xukai Zhao</strong>, Jinzhuo Wang.</p>
+        <div class="tag-row"><span class="tag">Clinical RAG</span><span class="tag">Heterogeneous Retrieval</span><span class="tag">Multi Agent</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Large Language Models (LLMs) have revolutionized text generation across diverse domains, showcasing an ability to mimic human-like text with remarkable accuracy. Yet, these models frequently encounter a significant hurdle: producing hallucinations, a flaw particularly detrimental in the healthcare domain where precision is crucial. In this paper, we introduce ClinicalRAG, a novel multi-agent pipeline to rectify this issue by incorporating heterogeneous medical knowledge—both structured and unstructured—into LLMs to bolster diagnosis accuracy. ClinicalRAG can extract related medical entities from user inputs and dynamically integrate relevant medical knowledge during the text generation process. Comparative analyses reveal that ClinicalRAG significantly outperforms knowledge-deficient methods, offering enhanced reliability in clinical decision support. This advancement marks a pivotal proof-of-concept step towards mitigating misinformation risks in healthcare applications of LLMs.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Benchmark">
+      <div class="paper-media">
+        <img src="assets/papers/2025_metabench.png" alt="Figure placeholder for MetaBench: A Multi task Benchmark for Assessing LLMs in Metabolomics" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Oct 2025</span> · <span class="paper-venue">arXiv:2510.14944</span></div>
+          <div class="paper-category">Benchmark</div>
+        </div>
+        <h3 class="paper-title"><a href="https://arxiv.org/abs/2510.14944" target="_blank" rel="noopener">MetaBench: A Multi task Benchmark for Assessing LLMs in Metabolomics</a></h3>
+        <p class="paper-authors">Yuxing Lu, <strong>Xukai Zhao</strong>, J. Ben Tamo, et al.</p>
+        <div class="tag-row"><span class="tag">Benchmark</span><span class="tag">Metabolomics</span><span class="tag">Evaluation</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Large Language Models (LLMs) have demonstrated remarkable capabilities on general text; however, their proficiency in specialized scientific domains that require deep, interconnected knowledge remains largely uncharacterized. Metabolomics presents unique challenges with its complex biochemical pathways, heterogeneous identifier systems, and fragmented databases. To systematically evaluate LLM capabilities in this domain, we introduce MetaBench, the first benchmark for metabolomics assessment. Curated from authoritative public resources, MetaBench evaluates five capabilities essential for metabolomics research: knowledge, understanding, grounding, reasoning, and research. Our evaluation of 25 open- and closed-source LLMs reveals distinct performance patterns across metabolomics tasks: while models perform well on text generation tasks, cross-database identifier grounding remains challenging even with retrieval augmentation. Model performance also decreases on long-tail metabolites with sparse annotations. With MetaBench, we provide essential infrastructure for developing and evaluating metabolomics AI systems, enabling systematic progress toward reliable computational tools for metabolomics research.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Benchmark">
+      <div class="paper-media">
+        <img src="assets/papers/2025_urban_planning_llm.jpg" alt="Figure placeholder for Urban planning in the age of large language models: Assessing OpenAI o1&#x27;s performance and capabilities across 556 tasks" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Jul 2025</span> · <span class="paper-venue">Computers, Environment and Urban Systems (IF=8.3)</span></div>
+          <div class="paper-category">Benchmark</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0198971525000857" target="_blank" rel="noopener">Urban planning in the age of large language models: Assessing OpenAI o1&#x27;s performance and capabilities across 556 tasks</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, He Huang, Tao Yang, et al.</p>
+        <div class="tag-row"><span class="tag">OpenAI o1</span><span class="tag">Urban Planning</span><span class="tag">Large Language Model</span><span class="tag">Performance evaluation</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Integrating Large Language Models (LLMs) into urban planning presents significant opportunities to enhance efficiency and support data-driven city development strategies. Despite their potential, the specific capabilities of LLMs within the urban planning context remain underexplored, and the field lacks standardized benchmarks for systematic evaluation. This study presents the first comprehensive evaluation focused on OpenAI o1's performance and capabilities in urban planning, systematically benchmarking it against GPT-3.5 and GPT-4o using an original open-source benchmark comprising 556 tasks across five critical categories: urban planning documentation, examinations, routine data analysis, AI algorithm support, and thesis writing. Through rigorous testing and manual analysis of 170,627 words of generated output, OpenAI o1 consistently outperformed its counterparts, achieving an average performance score of 84.08 % compared to 69.30 % for GPT-4o and 45.27 % for GPT-3.5. Our findings highlight o1's strengths in domain knowledge mastery, basic operational competence, and coding capabilities, demonstrating its potential applications in information retrieval, urban data analytics, planning decision support, educational assistance, and LLM-based agent development. However, significant limitations were identified, including inability in urban design, susceptibility to fabricating information, moderate academic writing quality, challenges in high-level professional examinations, and spatial reasoning, and limited support for specialized or emerging AI algorithms. Future optimizations should prioritize enhancing multimodal integration, implementing robust validation mechanisms, adopting adaptive learning strategies, and enabling domain-specific fine-tuning to meet urban planners' specialized needs. These advancements would enable LLMs to better support the evolving demands of urban planning, allowing professionals to focus more on strategic decision-making and the creative aspects of the field.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP">
+      <div class="paper-media">
+        <img src="assets/papers/2025_park_perceptions_patterns.jpg" alt="Figure placeholder for Exploring Temporal Spatial Patterns and Nonlinear Driving Mechanism of Park Perceptions: A Multi Source Big Data Study" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Mar 2025</span> · <span class="paper-venue">Sustainable Cities and Society (JCR Q1, IF=12.0)</span></div>
+          <div class="paper-category">NLP</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S2210670724009053" target="_blank" rel="noopener">Exploring Temporal Spatial Patterns and Nonlinear Driving Mechanism of Park Perceptions: A Multi Source Big Data Study</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, He Huang, Guangsi Lin, et al.</p>
+        <div class="tag-row"><span class="tag">RoBERTa</span><span class="tag">Social media data</span><span class="tag">SHAP</span><span class="tag">Urban Parks</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">To fully realize the benefits of parks, they must be both accessible and usable, with those excelling in these aspects often perceived as more attractive. Traditional surveys for evaluating perceived park accessibility, usability, and attractiveness are expensive and time-consuming, prompting the adoption of social media data as a viable alternative. This study fine-tuned the Chinese-RoBERTa-wwm-ext model on a specially curated dataset to measure perceived accessibility, usability, and attractiveness across 270 parks in Beijing and Guangzhou through 153,872 online comments. We conducted statistical analyses to uncover temporal patterns and incorporate park perception scores into the 2SFCA method for spatial distribution analysis. Additionally, we utilized XGBoost, SHAP, and PDP to investigate the nonlinear driving mechanisms behind these perceptions. Key findings include: (1) Park visitation demonstrates a strong seasonal pattern, with central urban parks consistently outperforming suburban ones; (2) Central subdistricts might face reduced park services due to high population demands; (3) Accessibility is significantly influenced by ticket pricing and transportation availability, especially bus stations; (4) Usability is optimal at a moderate density of sports and fitness facilities (22 per km2) and proximity to residential areas; (5) Attractiveness benefits from closeness to the Central Business District and amenities such as toilets and restaurants, with a critical park size threshold of 9 km2. These public-oriented analyses identify areas for improvement and factors shaping public perceptions, providing valuable guidance for strategic decision-making and effective urban management.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2025_park_accessibility_multimodal.png" alt="Figure placeholder for Assessing and Interpreting Perceived Park Accessibility, Usability and Attractiveness through Texts and Images from Social Media" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Feb 2025</span> · <span class="paper-venue">Sustainable Cities and Society (JCR Q1, IF=12.0)</span></div>
+          <div class="paper-category">Multi-model</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S221067072400444X" target="_blank" rel="noopener">Assessing and Interpreting Perceived Park Accessibility, Usability and Attractiveness through Texts and Images from Social Media</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, Yuxing Lu, Wenwen Huang, et al.</p>
+        <div class="tag-row"><span class="tag">CLIP</span><span class="tag">Multimodal</span><span class="tag">SHAP</span><span class="tag">Social media data</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Understanding public perceptions of urban parks is essential for their effective management. While conventional survey methods are resource-intensive, Social Media Data (SMD) offers a cost-effective alternative to gathering public insights. However, using SMD for park perception assessment remains challenges, particularly in integrating text and image analysis and filtering irrelevant content to identify influencing factors across various dimensions. Based on a manually curated dataset, this study introduces the Park Dual-modal Perception (PDP) model, a cutting-edge approach combining SMD text and image analysis to evaluate perceived park accessibility, usability, and attractiveness with an average accuracy of 86.81 %, outperforming the commonly used BERT model by 8.26 %. Utilizing SMD from 130 parks in Guangzhou, the model effectively quantifies the three dimensions, generating visual scoring maps to identify parks with lower perceived scores at the urban scale. Further incorporation of SHapley Additive exPlanations (SHAP) within the PDP model filters 82.79 % of irrelevant words and extracts 158 thematic words and 954 associated words, providing targeted suggestions for park improvements. Our findings indicate that (1) factors such as distance, travel time, ticket prices, and proximity to commercial amenities critically influence park accessibility. (2) Park usability hinges on park's ability to serve diverse groups and provide well-maintained, multifunctional facilities. (3) Park attractiveness is closely linked with the cultural and regulatory characteristics of ecosystem services. Our methodology combines assessment and interpretation of public perceptions at both city and park scales. It aids decision-makers in identifying low-rated parks and understanding the underlying reasons, thereby facilitating more informed urban planning decisions.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2024_multidimensional_perception.png" alt="Figure placeholder for How to Quantify Multidimensional Perception of Urban Parks?" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Dec 2024</span> · <span class="paper-venue">Urban Forestry and Urban Greening (JCR Q1, IF=6.7)</span></div>
+          <div class="paper-category">NLP</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S1618866725000883" target="_blank" rel="noopener">How to quantify multidimensional perception of urban parks? Integrating deep learning-based social media data analysis with questionnaire survey methods</a></h3>
+        <p class="paper-authors">Wenwen Huang, <strong>Xukai Zhao</strong>, Guangsi Lin, et al.</p>
+        <div class="tag-row"><span class="tag">Perception</span><span class="tag">ERNIE</span><span class="tag">Text Classification</span><span class="tag">Multidimensional perception</span></div>
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Urban parks are places where people regularly connect with nature and each other. Quantifying perceptions of urban parks presents significant changes. Recently, social media data has been increasingly used for studying landscape perceptions, preferences, and management. With the advent of deep learning techniques, the performance of NLP tasks has seen considerable improvement. We posed research questions at the methodological level: How could deep learning-based NLP methods be constructed to assess the multidimensional perception (MDP) of urban parks? How could the assessment performance of this method be validated? In this study, we constructed an MDP of urban parks assessment model based on ERNIE and subsequently conducted a questionnaire survey. By comparing the differences and similarities between the two data sets, we verified the model's assessment performance and proposed the application potential of deep learning-based methods. The findings indicated: (1) our model effectively obtained and assessed sentiment information from online reviews about park accessibility, safety, aesthetics, attractiveness, maintenance, and usability with an accuracy rate exceeding 80 %. (2) The questionnaire survey data confirmed the model's high efficacy, showing consistency in accessibility, aesthetics, and maintenance, but inconsistency in attractiveness and usability due to differences in data expression and timeliness. (3) Deep learning-based NLP methods significantly enhanced sentiment analysis of social media data, showing great potential for practical applications. The results could enhance the performance of sentiment analysis on social media data, serving as a decision-aid tool for park managers and policymakers, and providing valuable insights and guidance for park construction and management.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2024_panoramic_green_spaces.jpg" alt="Figure placeholder for Research on the Perception Evaluation of Urban Green Spaces Using Panoramic Images and Deep Learning" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Jul 2024</span> · <span class="paper-venue">Landscape Architecture Frontiers</span></div>
+          <div class="paper-category">CV</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.researchgate.net/profile/Xukai-Zhao-2/publication/387931154_Research_on_the_Perception_Evaluation_of_Urban_Green_Spaces_Using_Panoramic_Images_and_Deep_Learning_A_Case_Study_of_Zhujiang_Park_in_Guangzhou/links/678244662fcfd011cc65bd6c/Research-on-the-Perception-Evaluation-of-Urban-Green-Spaces-Using-Panoramic-Images-and-Deep-Learning-A-Case-Study-of-Zhujiang-Park-in-Guangzhou.pdf" target="_blank" rel="noopener">Research on the Perception Evaluation of Urban Green Spaces Using Panoramic Images and Deep Learning</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, Guangsi Lin.</p>
+        <div class="tag-row"><span class="tag">Panoramic images</span><span class="tag">ViT</span><span class="tag">Semantic Segmentation</span><span class="tag">Image classification</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Visual quality assessment of urban green spaces is a majortopic in landscape architecture research, yet traditional methodsface limitations in practice. The rapid development of artificialintelligence and street-view big data offers opportunities foradvancing green space perception studies. However, the lack offull street view image coverage of green spaces in China poseschallenges for related research. Focusing on public landscapeperception evaluation, this research took Zhuiiang Park inGuangzhou, China as a case study. The research team utilizeoa convenient image collection method by panoramic cameraand an effective processing workflow, and then employed the Segformer-B5 semantic segmentation model and the ViT-base-p16image classification model to calculate four objective evaluationmetrics (green view index, sky view factor, road visibility index, andartificial structure visibility index) and four subiective evaluationmetrics (attractiveness, richness, naturalness, and depression)for visual quality assessment. Based on the spatial distributionresults of these metrics,comprehensive analvses were conductedand low-score areas were identified,Research results indicatethat vegetation and water features significantly enhance parkattractiveness and positive perceptions, while excessive sky andartificial structures produce negative effects; oppressive artificial landscapes and constrained architectural views also lower overalllandscape quality. The image collection and visual perceptionevaluation methods proposed in this study provide a scientific basisfor the renovation and management of urban green spaces.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2024_multiscale_scoring.jpg" alt="Figure placeholder for Multiscale Scoring Model for Enhanced Urban Perception Evaluation" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Mar 2024</span> · <span class="paper-venue">ICASSP 2024 (CCF-B)</span></div>
+          <div class="paper-category">CV</div>
+        </div>
+        <h3 class="paper-title"><a href="https://ieeexplore.ieee.org/abstract/document/10447909" target="_blank" rel="noopener">Multiscale Scoring Model for Enhanced Urban Perception Evaluation</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, Yuxing Lu, Jinzhuo Wang.</p>
+        <div class="tag-row"><span class="tag">ViT</span><span class="tag">Place Pulse</span><span class="tag">Image classification</span><span class="tag">Perception evaluation</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Effective urban management, renewal, and development rely on identifying low-quality areas within the city. However, previous studies have been limited by low-volume handcraft surveys and a dearth of data sources, making it difficult to understand human perception within the urban environment. In this paper, we propose a powerful yet simple scoring model to perform street view image recognition and evaluation which utilizes both global information and feature-level semantic information of street elements, resulting in a high-precision perception model on 6 indexes (Beautiful, Lively, Safe, Wealthy, Boring, and Depressing) from Place Pulse 2.0 dataset. The model is then independently applied to a large-scale and fine-grained evaluation task of 4,384 street view images in Shameen Region, Guangzhou, providing valuable perception details and decision-making support for urban planning for the local government. We believe our work will accelerate the digitization and intelligent transformation of municipal engineering.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2023_visual_qualities_street_view.png" alt="Figure placeholder for An integrated deep learning approach for assessing the visual qualities of built environments utilizing street view images" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Dec 2023</span> · <span class="paper-venue">EAAI (JCR Q1, IF=8.0)</span></div>
+          <div class="paper-category">CV</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623019899" target="_blank" rel="noopener">An integrated deep learning approach for assessing the visual qualities of built environments utilizing street view images</a></h3>
+        <p class="paper-authors"><strong>Xukai Zhao</strong>, Yuxing Lu, Guangsi Lin.</p>
+        <div class="tag-row"><span class="tag">ConvNeXt</span><span class="tag">Segformer-B5</span><span class="tag">Grad CAM</span><span class="tag">Street View</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Investigating residents' visual preferences and perception of built environments is crucial in visual landscape assessment (VLA). While traditional methods face challenges in large-scale applications, the advancement of deep learning techniques and the availability of street view images (SVIs) present new opportunities. However, existing approaches for assessing SVIs' visual qualities are of lower precision, and the link between objective visual elements and subjective perceptions of SVIs remains unclear. In this study, we propose a novel deep learning approach, “SegFormer-B5 + ConvNeXt-B + RF”, which achieves an average accuracy of 78.47% in predicting six subjective perceptions (beautiful, boring, depressing, lively, safe, and wealthy) within the Place Pulse 2.0 dataset. This provides an effective tool for assessing citizens' visual perceptions of urban environments. Subsequently, to demonstrate its practical application, we conducted a case study using 36,620 SVIs from the Tianhe District of Guangzhou. Perception maps were constructed based on four objective metrics and six subjective metrics. Results showed a correlation between the spatial distribution of objective visual elements and subjective perceptions, with city centers generally perceived more positively than suburbs. Our application of SHapley Additive exPlanation (SHAP) and Class Activation Map (CAM) visualizations yielded interpretable insights consistent with eye-tracking studies, highlighting human focus on artificial objects, attractive and unattractive elements, and heterogeneous landscapes. It's noteworthy that urban planners and decision-makers in other cities can apply our approach to generate perception maps that identify low-quality areas. SHAP and CAM visualizations further assist in understanding which aspects draw human attention in these areas. This knowledge is crucial for urban designers to implement targeted renewal strategies, ultimately contributing to the creation of sustainable and living-friendly cities.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="NLP and CV">
+      <div class="paper-media">
+        <img src="assets/papers/2023_medical_prompt_learning.png" alt="Figure placeholder for Medical knowledge enhanced prompt learning for diagnosis classification from clinical text" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Jun 2023</span> · <span class="paper-venue">ACL 2023 Workshop</span></div>
+          <div class="paper-category">NLP</div>
+        </div>
+        <h3 class="paper-title"><a href="https://aclanthology.org/2023.clinicalnlp-1.33/" target="_blank" rel="noopener">Medical knowledge enhanced prompt learning for diagnosis classification from clinical text</a></h3>
+        <p class="paper-authors">Yuxing Lu, <strong>Xukai Zhao</strong>, Jinzhuo Wang.</p>
+        <div class="tag-row"><span class="tag">Prompt Learning</span><span class="tag">Medical NLP</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Artificial intelligence based diagnosis systems have emerged as powerful tools to reform traditional medical care. Each clinician now wants to have his own intelligent diagnostic partner to expand the range of services he can provide. When reading a clinical note, experts make inferences with relevant knowledge. However, medical knowledge appears to be heterogeneous, including structured and unstructured knowledge. Existing approaches are incapable of uniforming them well. Besides, the descriptions of clinical findings in clinical notes, which are reasoned to diagnosis, vary a lot for different diseases or patients. To address these problems, we propose a Medical Knowledge-enhanced Prompt Learning (MedKPL) model for diagnosis classification. First, to overcome the heterogeneity of knowledge, given the knowledge relevant to diagnosis, MedKPL extracts and normalizes the relevant knowledge into a prompt sequence. Then, MedKPL integrates the knowledge prompt with the clinical note into a designed prompt for representation. Therefore, MedKPL can integrate medical knowledge into the models to enhance diagnosis and effectively transfer learned diagnosis capacity to unseen diseases using alternating relevant disease knowledge. The experimental results on two medical datasets show that our method can obtain better medical text classification results and can perform better in transfer and few-shot settings among datasets of different diseases.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Other">
+      <div class="paper-media">
+        <img src="assets/papers/2025_courtyard_thermal_comfort.png" alt="Figure placeholder for Exploration of non linear influence mechanisms of traditional courtyard forms on thermal comfort" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Feb 2025</span> · <span class="paper-venue">Sustainable Cities and Society (JCR Q1, IF=12.0)</span></div>
+          <div class="paper-category">Other</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S2210670725000022" target="_blank" rel="noopener">Exploration of non linear influence mechanisms of traditional courtyard forms on thermal comfort</a></h3>
+        <p class="paper-authors">Wenke Wang, Yang Shi, Jie Zhang, <strong>Xukai Zhao</strong></p>
+        <div class="tag-row"><span class="tag">Thermal Comfort</span><span class="tag">Courtyard</span><span class="tag">Nonlinear</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Traditional courtyard architecture offers superior climate regulation function through its unique enclosed spatial form, which is significant in mitigating global warming, urban heat islands, and promoting sustainable urban development. However, existing research has not thoroughly explored the comprehensiveness of climate zones, the systematicity of morphological elements, and the non-linear mechanisms. This study investigates traditional courtyards in Beijing using an integrated approach combining field survey, ENVI-met numerical simulation, machine learning, and SHAP interpretation methods to reveal the non-linear influence mechanisms of courtyard morphology on thermal comfort. The results show that: 1) The XGBoost model achieves high accuracy in fitting study data, with R2 values of 0.99 and 0.85 for training and test sets, respectively; 2) The contribution of the built environment to thermal comfort in winter and summer (70 % and 52 %, respectively) is significantly higher than that of the natural environment, especially in winter; 3) Morphological features affect thermal comfort in winter and summer in a mostly synergistic way, but there are differences in the curve trend, threshold distribution, and the range of benefits, e.g., the benefits of Sky View Factor (SVF) on thermal comfort in winter and summer can be up to 2.0 °C and 1.5 °C, respectively; (4) The enhancement of thermal comfort of traditional courtyards in Beijing can be achieved through parameters such as aspect ratio (HAR), shape index (SI), and building coverage (BDG), but the implementation process is susceptible to limitations such as cultural values. The conclusions of this study make up for the shortcomings of current research areas, influencing elements, and research methods and help promote the sustainable development of courtyards in similar climatic and cultural contexts.</p>
+        </details>
+      </div>
+    </article>
+
+<article class="paper-card reveal" data-category="Other">
+      <div class="paper-media">
+        <img src="assets/papers/2022_community_gardens.jpg" alt="Figure placeholder for Evaluating the effectiveness of community gardens by a quantitative systematic framework" loading="lazy">
+      </div>
+      <div class="paper-body">
+        <div class="paper-top">
+          <div class="paper-meta"><span class="paper-date">Apr 2022</span> · <span class="paper-venue">Sustainable Cities and Society (JCR Q1, IF=12.0)</span></div>
+          <div class="paper-category">Other</div>
+        </div>
+        <h3 class="paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S2210670722000105" target="_blank" rel="noopener">Evaluating the effectiveness of community gardens by a quantitative systematic framework</a></h3>
+        <p class="paper-authors">Jiesi Wang, Guanting Zhang, <strong>Xukai Zhao</strong></p>
+        <div class="tag-row"><span class="tag">Spatial optimization</span><span class="tag">Evaluation Framework</span><span class="tag">Decision support systems</span></div>
+
+        
+
+        <details class="paper-details">
+          <summary>Abstract</summary>
+          <p class="paper-abstract">Community gardens play a significant role in urban agriculture and provide a valuable resource for urban regeneration. Few studies quantitatively evaluate their impacts, which are valuable for policymakers to improve urban sustainability by site optimization. In this study, we set up a multimetric framework to quantitatively evaluate the effectiveness of community gardens at census tract resolution. Attractiveness is the external determinant of their effectiveness and reflects residents’ motivation to participate in garden activities, while the cover rate and serviceability represent two internal determinants. This framework is then applied to analyze the changes in community gardens in St. Louis, Missouri in the US from 2010 to 2019. The results reveal that tract attractiveness is positively correlated with the poverty rate in 2010 but negatively correlated in 2019, suggesting a significant temporal change in garden impacts. Collectively, our findings provide a multimetric framework for the spatial and temporal analysis of community gardens and represent a valuable decision support system to improve urban sustainability.</p>
+        </details>
+      </div>
+    </article>
+      </div>
+    </section>
+
+    <section id="urban" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Intelligent Perception Analysis Platform</h2>
+          <!-- <p class="muted reveal">A companion page with interactive content and related work.</p> -->
+        </div>
+
+        <div class="grid-2">
+          <div class="card reveal hover-lift">
+            <h3 style="color: #ff7a41;">Explore my other site</h3>
+            <p class="muted">I also developed an Intelligent Perception Analysis Platform to demonstrate my park perception models for social media data analysis.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="http://urban-perception.cn/" target="_blank" rel="noopener">Try the models</a>
+              <button class="btn ghost" type="button" data-copy="http://urban-perception.cn/">Copy link</button>
+            </div>
+          </div>
+
+          <a class="card reveal hover-lift screenshot-card" href="http://urban-perception.cn/" target="_blank" rel="noopener" aria-label="Open Intelligent Perception Analysis Platform">
+            <img src="assets/urban_platform.png" alt="Intelligent Perception Analysis Platform screenshot">
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="honors" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Honors and Awards</h2>
+          <!-- <p class="muted reveal">Scholarships, competitions, and academic activities.</p> -->
+        </div>
+
+        <div class="grid-2">
+          <div class="card reveal hover-lift">
+            <h3 class="collapsible-header" data-target="scholarships-content">
+              Scholarships and honors
+              <span class="collapse-icon">▼</span>
+            </h3>
+            <ol class="timeline collapsible-content" id="scholarships-content">
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Sep 2025</div>
+                  <div class="timeline-title">Tsinghua University Future Scholar Scholarship</div>
+                  <div class="timeline-note muted">清华大学未来学者奖学金</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2024</div>
+                  <div class="timeline-title">National Scholarship for Graduate Students</div>
+                  <div class="timeline-note muted">硕士研究生国家奖学金</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2024</div>
+                  <div class="timeline-title">Jingtang He Science and Technology Innovation Award</div>
+                  <div class="timeline-note muted">何镜堂科技创新奖</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2023</div>
+                  <div class="timeline-title">Longfor Scholarship</div>
+                  <div class="timeline-note muted">龙湖奖学金</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2021</div>
+                  <div class="timeline-title">Soochow University 2021 Model Student</div>
+                  <div class="timeline-note muted">苏州大学2021年学生标兵</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Oct 2021</div>
+                  <div class="timeline-title">National Endeavor Scholarship, Special Prize for Academic Excellence</div>
+                  <div class="timeline-note muted">国家励志奖学金、学习优秀特等奖</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2020</div>
+                  <div class="timeline-title">National Endeavor Scholarship, Special Prize for Academic Excellence</div>
+                  <div class="timeline-note muted">国家励志奖学金、学习优秀特等奖</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2019</div>
+                  <div class="timeline-title">National Endeavor Scholarship, Diandian Scholarship</div>
+                  <div class="timeline-note muted">国家励志奖学金、点点奖学金</div>
+                </div>
+              </li>
+              
+            </ol>
+          </div>
+
+          <div class="card reveal hover-lift">
+            <h3 class="collapsible-header" data-target="academic-content">
+              Academic activities
+              <span class="collapse-icon">▼</span>
+            </h3>
+            <ol class="timeline collapsible-content" id="academic-content">
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Feb 2026</div>
+                  <div class="timeline-title">International Academic Conference on Sustainable Cultural Heritage and Historic Cities <span class="timeline-title-normal">(Oral)</span></div>
+                  <div class="timeline-note muted">可持续的文化遗产与历史城市国际学术交流会・平遥</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Dec 2025</div>
+                  <div class="timeline-title">NeurIPS 2025 <span class="timeline-title-normal">(Spotlight and Poster)</span></div>
+                  <div class="timeline-note muted">San Diego, United States</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2025</div>
+                  <div class="timeline-title">Smart, Interdisciplinary, Green — The Future of Urban Development</div>
+                  <div class="timeline-note muted">清华大学“智能·交叉·绿色——城市建设的未来”学术论坛・北京</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Jun 2025</div>
+                  <div class="timeline-title">PhD Academic Forum of THU <span class="timeline-title-normal">(Excellent Paper)</span></div>
+                  <div class="timeline-note muted">清华大学第博士生学术论坛优秀论文・北京</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Sep 2024</div>
+                  <div class="timeline-title">IFLA 2024 <span class="timeline-title-normal">(Oral)</span></div>
+                  <div class="timeline-note muted">Istanbul, Turkey</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Sep 2024</div>
+                  <div class="timeline-title">PhD Academic Forum of THU <span class="timeline-title-normal">(Excellent Paper)</span></div>
+                  <div class="timeline-note muted">清华大学第博士生学术论坛优秀论文・北京</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">May 2024</div>
+                  <div class="timeline-title">ICASSP 2024 <span class="timeline-title-normal">(Poster)</span></div>
+                  <div class="timeline-note muted">Seoul, South Korea</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">May 2024</div>
+                  <div class="timeline-title">Youth Geoscience Forum <span class="timeline-title-normal">(Poster)</span></div>
+                  <div class="timeline-note muted">青年地学论坛・厦门</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2023</div>
+                  <div class="timeline-title">Annual Conference of Territorial Spatial Planning<span class="timeline-title-normal"> (First prize)</span></div>
+                  <div class="timeline-note muted">国土空间规划学术年会一等奖・广州</div>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-marker">
+                  <span class="timeline-dot"></span>
+                </div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Nov 2023</div>
+                  <div class="timeline-title">PhD Academic Forum of THU <span class="timeline-title-normal">(Excellent Paper)</span></div>
+                  <div class="timeline-note muted">清华大学第博士生学术论坛优秀论文・北京</div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <br>
+        <div class="card reveal hover-lift">
+          <h3>Competitions and design awards</h3>
+          <div class="competition-list-horizontal">
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/2025_challenge_cup_1.png" alt="Competition drawing for 18th Challenge Cup Guangdong Competition">
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">May 2025</div>
+                <div class="competition-title">Grand Prize, 18th Challenge Cup Guangdong Competition</div>
+              </div>
+            </div>
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/2024_milan_1.jpg" alt="Competition drawing for Milan Design Week University Design Exhibition">
+                <img class="drawing-a0" src="assets/drawings/2024_milan_2.jpg" alt="Additional competition drawing for Milan Design Week University Design Exhibition">
+                <img class="drawing-a0" src="assets/drawings/2024_milan_3.jpg">
+                <img class="drawing-a0" src="assets/drawings/2024_milan_4.jpg">
+                <!-- <img class="drawing-a0" src="assets/drawings/2024_milan_5.jpg"> -->
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">May 2024</div>
+                <div class="competition-title">First Prize, Milan Design Week University Design Exhibition</div>
+              </div>
+            </div>
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/赵旭凯顾舒文陈淑妍_国际景观_03.png" >
+                <img class="drawing-a0" src="assets/drawings/赵旭凯顾舒文陈淑妍_国际景观_04.png" >
+                <img class="drawing-a0" src="assets/drawings/赵旭凯顾舒文陈淑妍_国际景观_05.png" >
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">Jun 2023</div>
+                <div class="competition-title">First Place, National Community Garden Design and Construction Competition</div>
+              </div>
+            </div>
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/2023_community_garden_1.jpg" >
+                <img class="drawing-a0" src="assets/drawings/2023_community_garden_2.jpg" >
+                <img class="drawing-a0" src="assets/drawings/2023_community_garden_3.jpg" >
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">Apr 2023</div>
+                <div class="competition-title">Gold Award, Guangzhou Garden Expo Student Design Competition</div>
+              </div>
+            </div>
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/f12156417763b70ad5d9c5a6f6457956.jpg" >
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">May 2021</div>
+                <div class="competition-title">CHSLA 2nd award</div>
+              </div>
+            </div>
+            <div class="competition-item">
+              <div class="competition-drawings">
+                <img class="drawing-a0" src="assets/drawings/a170e790dc5fd9996287a4fbea5a3446.jpg" >
+              </div>
+              <div class="competition-info">
+                <div class="competition-date">Dec 2020</div>
+                <div class="competition-title"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="patents" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Patents</h2>
+          <!-- <p class="muted reveal">Related to multimodal perception, review scoring, and agent based retrieval systems.</p> -->
+        </div>
+
+        <div class="patent-list">
+          <div class="patent-item reveal hover-lift">
+            <div class="patent-date">Jan 2026</div>
+            <div class="patent-content">
+              <div class="patent-title-row">
+                <div class="patent-title">A multi agent large language model system for perceived cultural heritage value analysis and retrieval</div>
+                <div class="patent-status status-published">Published</div>
+              </div>
+              <div class="patent-authors">Xukai Zhao, He Huang</div>
+            </div>
+          </div>
+          <div class="patent-item reveal hover-lift">
+            <div class="patent-date">Feb 2025</div>
+            <div class="patent-content">
+              <div class="patent-title-row">
+                <div class="patent-title">A method and device for scoring park social media reviews and extracting core phrases</div>
+                <div class="patent-status status-published">Published</div>
+              </div>
+              <div class="patent-authors">Guangsi Lin, Xukai Zhao, et al.</div>
+            </div>
+          </div>
+          <div class="patent-item reveal hover-lift">
+            <div class="patent-date">Feb 2025</div>
+            <div class="patent-content">
+              <div class="patent-title-row">
+                <div class="patent-title">A method for extracting focal objects in park images based on visual saliency prediction</div>
+                <div class="patent-status status-published">Published</div>
+              </div>
+              <div class="patent-authors">Guangsi Lin, Xukai Zhao, et al.</div>
+            </div>
+          </div>
+          <div class="patent-item reveal hover-lift">
+            <div class="patent-date">Jan 2024</div>
+            <div class="patent-content">
+              <div class="patent-title-row">
+                <div class="patent-title">A multimodal scoring method and system coupling park social media texts and images</div>
+                <div class="patent-status status-granted">Granted</div>
+              </div>
+              <div class="patent-authors">Xukai Zhao, Guangsi Lin, et al.</div>
+            </div>
+          </div>
+          <div class="patent-item reveal hover-lift">
+            <div class="patent-date">Dec 2023</div>
+            <div class="patent-content">
+              <div class="patent-title-row">
+                <div class="patent-title">A built environment perception evaluation method based on street view images, system, device, and medium</div>
+                <div class="patent-status status-published">Published</div>
+              </div>
+              <div class="patent-authors">Xukai Zhao, Guangsi Lin, et al.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviewer" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="reveal">Peer Reviewer</h2>
+        </div>
+
+        <div class="reviewer-list-horizontal">
+        <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Technology in Society.jpg" alt="Technology in Society journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Technology in Society</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 12.5</div>
+          </div>
+          <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Sustainable Cities and Society.jpg" alt="Sustainable Cities and Society journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Sustainable Cities and Society</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 12.0</div>
+          </div>
+          <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Expert systems with applications.jpg" alt="Expert Systems with Applications journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Expert Systems with Applications</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 7.5</div>
+          </div>
+          <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Urban Forestry & Urban Greening.jpg" alt="Urban Forestry & Urban Greening journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Urban Forestry & Urban Greening</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 6.7</div>
+          </div>
+          <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Cities.jpg" alt="Cities journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Cities</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 6.6</div>
+          </div>
+          <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Apllied geography.jpg" alt="Applied Geography journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Applied Geography</div>
+            <div class="reviewer-journal-meta">JCR Q1 · IF = 5.4</div>
+          </div>
+          
+          
+          <!-- <div class="reviewer-item reveal hover-lift">
+            <div class="reviewer-journal-cover">
+              <img src="assets/journals/Journal of Environmental Engineering and Landscape Managemen.png" alt="Journal of Environmental Engineering and Landscape Management journal cover" loading="lazy">
+            </div>
+            <div class="reviewer-journal-name">Journal of Environmental Engineering and Landscape Management</div> -->
+            <!-- <div class="reviewer-journal-meta">Environmental engineering · IF ≈ 1.1 (2023)</div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visitor-stats" class="section alt">
+      <div class="container">
+        <div class="visitor-stats-content">
+          <div class="visitor-count reveal">
+            <h3>Visitor Statistics</h3>
+            <div class="visitor-number" id="visitorCount">0</div>
+            <p class="muted">Total visitors</p>
+          </div>
+          <div class="visitor-map reveal">
+            <h3>Visitor Locations</h3>
+            <div id="visitorMap" class="map-container">
+              <div id="mmvst_globe"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="muted">© <span id="year"></span> XuKai Zhao. Built with HTML, CSS, and JavaScript.</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script type="text/javascript" id="mmvst_globe_script" src="//mapmyvisitors.com/globe.js?d=YbQ5Mb-j3jy_2NPf0IQjbfI6yAF8JI4ul4qw4BteJHM"></script>
+</body>
+</html>
