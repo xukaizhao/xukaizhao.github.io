@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>从花讯到路线：基于腾讯位置服务与Agent的城市赏花地图实践</title>
+    <link rel="stylesheet" href="./styles.css?v=20261022-tencent-1" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="floating-header glass-card">
+        <div>
+          <p class="brand-kicker">Seasonal Map Experience</p>
+          <h1>从花讯到路线：基于腾讯位置服务与Agent的城市赏花地图实践</h1>
+          <p class="brand-copy">腾讯位置大赛二等奖作品 · 清华春日赏花地图。使用腾讯地图底图，花况使用项目示例数据，路线为点位连线示意。</p>
+        </div>
+        <div class="header-pills">
+          <span id="hero-poi-count">0 个核心点位</span>
+          <span id="hero-flower-count">0 个花点位</span>
+          <span id="hero-update-count">0 条日更</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="control-rail glass-card">
+          <div class="control-top">
+            <p class="section-kicker">Discover</p>
+            <h2>今天想怎么游校园</h2>
+          </div>
+
+          <form id="planner-form" class="planner-form">
+            <label class="intent-field span-all">
+              一句话描述偏好
+              <input id="intent-input" type="text" placeholder="比如：想看粉色的花，先找个地方吃午饭，再去情人坡休息一会" />
+              <small>输入花种、游览时长、午餐或休息偏好，生成串联点位的示意路线。</small>
+            </label>
+            <label class="span-all">
+              从哪里出发
+              <input id="planner-start-input" type="text" placeholder="默认从清华大学中心区域出发，也可以输入宿舍、教学楼或在地图上选点" />
+              <small>可以输入已收录的校园地点，也可以直接在地图上点选起点。</small>
+            </label>
+            <div class="picker-actions span-all planner-start-actions">
+              <div class="picker-btns">
+                <button id="pick-start-on-map-btn" type="button" class="secondary-btn">在地图上选起点</button>
+                <button id="clear-start-btn" type="button" class="secondary-btn">恢复默认起点</button>
+              </div>
+              <span id="planner-start-display" class="picked-point-display">当前从清华大学中心区域出发。</span>
+            </div>
+            <div id="planner-start-suggestions" class="planner-start-suggestions span-all"></div>
+            <button type="submit" class="primary-btn span-all">生成今日路线</button>
+          </form>
+
+          <div class="smart-summary">
+            <p class="section-kicker">Smart Walk</p>
+            <div id="route-summary" class="smart-copy"></div>
+            <div class="summary-metrics">
+              <span id="route-distance">0 km</span>
+              <span id="route-duration">推荐中</span>
+            </div>
+          </div>
+
+          <section class="agent-brief">
+            <div class="brief-head">
+              <div>
+                <p class="section-kicker">Agent Flow</p>
+                <h3>路线规划过程</h3>
+              </div>
+              <span class="brief-badge">Preference · Places · Route</span>
+            </div>
+            <p id="agent-connection" class="agent-connection">偏好规划演示</p>
+            <div id="intent-chips" class="intent-chips"></div>
+            <div id="agent-plan" class="agent-plan"></div>
+          </section>
+
+          <div class="rail-actions">
+            <button id="locate-btn" class="secondary-btn">定位到我</button>
+            <button id="focus-route-btn" class="secondary-btn">聚焦路线</button>
+          </div>
+        </section>
+
+        <section class="map-stage glass-card">
+          <div class="map-toolbar">
+            <div>
+              <p class="section-kicker">Live Demo</p>
+              <h2>清华大学春日赏花地图</h2>
+            </div>
+            <div id="map-status" class="map-status">正在准备地图。</div>
+          </div>
+
+          <div class="view-switcher map-view-switcher" id="view-switcher">
+            <button class="view-chip is-active" data-view="spots">春季点位</button>
+            <button class="view-chip" data-view="flowers">花卉地图</button>
+            <button class="view-chip" data-view="recommend">今日推荐</button>
+            <button class="view-chip" data-view="updates">日更动态</button>
+          </div>
+
+          <div class="map-layout">
+            <div class="map-frame">
+              <div id="map" class="map-canvas" aria-label="地图展示区域"></div>
+            </div>
+
+            <aside class="map-preview glass-card">
+              <div class="panel-head">
+                <p class="section-kicker" id="preview-kicker">Selected Spot</p>
+                <h3 id="preview-title">点击点位查看实景</h3>
+              </div>
+              <div id="preview-content" class="preview-content"></div>
+            </aside>
+          </div>
+
+          <section class="map-panel glass-card">
+            <div class="panel-head">
+              <p class="section-kicker" id="panel-kicker">Spring Spots</p>
+              <h3 id="panel-title">春季点位列表</h3>
+            </div>
+            <div id="panel-content" class="panel-content"></div>
+          </section>
+        </section>
+      </main>
+
+      <section class="bottom-dock glass-card">
+        <div class="dock-head">
+          <div>
+            <p id="dock-kicker" class="section-kicker">Today Picks</p>
+            <h2 id="dock-title">今日推荐</h2>
+          </div>
+          <span id="dock-tip" class="dock-tip">横向滑动查看不同路线</span>
+        </div>
+        <div id="recommend-scroller" class="recommend-scroller"></div>
+
+        <section class="community-lab">
+          <div class="community-head">
+            <p class="section-kicker">Community Layer</p>
+            <h3>共建花况上报</h3>
+            <p class="community-copy">演示版会先写入本地设备并立即刷新花卉地图、日更动态和推荐文案，后续很适合迁移到云函数和审核流。</p>
+          </div>
+          <div class="community-body">
+            <p class="agent-connection">共建记录仅保存在当前浏览器。</p>
+            <form id="contribution-form" class="contribution-form">
+              <div class="picker-actions span-all">
+                <button id="pick-on-map-btn" type="button" class="secondary-btn">在右侧地图选点</button>
+                <span id="picked-point-display" class="picked-point-display">当前未选地图点位，将使用下方关联点位坐标。</span>
+              </div>
+              <label class="span-all">
+                位置名称
+                <input id="contribution-location-name" type="text" placeholder="比如：情人坡东侧草地、逸夫馆南门" />
+                <small>支持自定义地点名；如果你在地图上点击了 POI，会自动带入附近地点名。</small>
+              </label>
+              <label>
+                关联已有点位
+                <select id="contribution-linked-spot"></select>
+                <small>这项是可选的，用来说明它靠近哪个校园地点，不会限制你真正标注的位置。</small>
+              </label>
+              <label>
+                花种
+                <input id="contribution-species" list="contribution-species-list" type="text" placeholder="比如：樱花、玉兰、海棠、郁金香" />
+                <datalist id="contribution-species-list"></datalist>
+              </label>
+              <label>
+                开花状态
+                <select id="contribution-bloom">
+                  <option value="含苞">含苞</option>
+                  <option value="初开">初开</option>
+                  <option value="最佳观赏期" selected>最佳观赏期</option>
+                  <option value="开始飘落">开始飘落</option>
+                </select>
+              </label>
+              <label>
+                图片链接
+                <input id="contribution-image" type="url" placeholder="https://example.com/flower.jpg" />
+                <small>可选，若不填写会先沿用该点位的默认图片。</small>
+              </label>
+              <label class="span-all">
+                更新说明
+                <input id="contribution-note" type="text" placeholder="比如：中午光线很好，海棠开得更满了" />
+              </label>
+              <button type="submit" class="primary-btn span-all">提交一条共建更新</button>
+            </form>
+
+            <aside class="community-map-card">
+              <div class="community-map-head">
+                <p class="section-kicker">Pick On Map</p>
+                <h4>共建选点地图</h4>
+                <p id="community-map-status" class="community-map-status">点击“在右侧地图选点”后，可直接在这里标注花况位置。</p>
+              </div>
+              <div id="community-map" class="community-map" aria-label="共建花况选点地图"></div>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <script src="./src/config.js?v=20261022-tencent-1"></script>
+    <script src="./src/data/demo-data.js?v=20261022-tencent-1"></script>
+    <script src="./src/app.js?v=20261022-tencent-1"></script>
+  </body>
+</html>

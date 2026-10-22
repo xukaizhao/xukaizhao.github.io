@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Landscape Lab | 可持续景观实验室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 0;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-link:hover {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgb(185, 221, 64);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(to right, rgb(1, 154, 67), rgb(191, 213, 1));
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content .subtitle {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 45px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Analysis Options */
+        .analysis-options {
+            max-width: 1200px;
+            margin: -80px auto 100px;
+            padding: 0 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .option-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+
+        .option-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+            border-color: rgb(185, 221, 64);
+        }
+
+        .option-icon {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            display: block;
+            filter: grayscale(20%);
+        }
+
+        .option-title {
+            font-size: 1.6rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .option-title-en {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .option-description {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .option-tech {
+            background: rgba(185, 221, 64, 0.1);
+            color: rgb(165, 201, 44);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            letter-spacing: -0.01em;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: white;
+            padding: 100px 30px;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .features-title-en {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .features-subtitle {
+            color: #666;
+            font-size: 1.15rem;
+            margin-bottom: 70px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+        }
+
+        .feature-item {
+            padding: 40px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: rgb(185, 221, 64);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-title-en {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgb(185, 221, 64);
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-text2 {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-top: 25px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 25px;
+            }
+            
+            .nav-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .option-card {
+                padding: 35px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .nav-container {
+                padding: 12px 20px;
+            }
+
+            .analysis-options {
+                padding: 0 20px;
+            }
+
+            .features-section {
+                padding: 80px 20px;
+            }
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 0;
+        }
+
+        .lang-button {
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+
+        .lang-button.active {
+            border-color: rgb(185, 221, 64);
+            background: rgb(185, 221, 64);
+            color: white;
+        }
+
+        .lang-button:hover:not(.active) {
+            border-color: rgb(185, 221, 64);
+            color: rgb(185, 221, 64);
+        }
+
+        /* Hide/Show content based on language */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        .lang-inline {
+            display: none;
+        }
+
+        .lang-inline.active {
+            display: inline;
+        }
+
+        .hero-logo {
+            margin-bottom: 30px;
+        }
+
+        .hero-logo-image {
+            height: 80px;
+            width: auto;
+            border-radius: 12px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .option-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(185, 221, 64, 0.1) 0%, rgba(185, 221, 64, 0.05) 100%);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(185, 221, 64, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover .option-image-placeholder {
+            border-color: rgb(185, 221, 64);
+            background: linear-gradient(135deg, rgba(185, 221, 64, 0.15) 0%, rgba(185, 221, 64, 0.08) 100%);
+        }
+
+        .placeholder-text {
+            color: rgba(185, 221, 64, 0.7);
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .option-image {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover .option-image {
+            transform: scale(1.02);
+        }
+
+        /* Updated Styles */
+        .nav-link:hover {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active::after {
+            background: rgb(185, 221, 64);
+        }
+
+        .lang-button.active {
+            border-color: rgb(185, 221, 64);
+            background: rgb(185, 221, 64);
+        }
+
+        .lang-button:hover:not(.active) {
+            border-color: rgb(185, 221, 64);
+            color: rgb(185, 221, 64);
+        }
+
+        .option-card:hover {
+            border-color: rgb(185, 221, 64);
+        }
+
+        .option-tech {
+            color: rgb(165, 201, 44);
+        }
+
+        .feature-icon {
+            color: rgb(185, 221, 64);
+        }
+
+        .option-card:hover .option-image-placeholder {
+            border-color: rgb(185, 221, 64);
+        }
+
+        .map-container {
+            max-width: 700px; /* Set a maximum width for the map's decorative container */
+            width: 90%; /* Ensure it's responsive on smaller screens */
+            margin: 0 auto 50px; /* Center the container and add bottom margin */
+            border-radius: 15px; /* Add rounded corners */
+            overflow: hidden; /* This makes sure the inner map respects the rounded corners */
+        }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SLA Logo" class="logo-image">
+            </a>
+            
+            <nav>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="index.html" class="nav-link active"><span class="lang-inline active" data-lang="zh">主页</span><span class="lang-inline" data-lang="en">Home</span></a></li>
+                        <li class="nav-item"><a href="https://sla-lab.com/" class="nav-link" target="_blank"><span class="lang-inline active" data-lang="zh">团队介绍</span><span class="lang-inline" data-lang="en">Team</span></a></li>
+                        <li class="nav-item"><a href="image-analysis.html" class="nav-link"><span class="lang-inline active" data-lang="zh">街景图像分析</span><span class="lang-inline" data-lang="en">Street View Analysis</span></a></li>
+                        <li class="nav-item"><a href="text-analysis.html" class="nav-link"><span class="lang-inline active" data-lang="zh">社交媒体文本分析</span><span class="lang-inline" data-lang="en">Social Media Analysis</span></a></li>
+                    </ul>
+                    <div class="language-switcher">
+                        <button class="lang-button active" data-lang="zh">中文</button>
+                        <button class="lang-button" data-lang="en">English</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="assets/logo-White.png" alt="SLA Logo" class="hero-logo-image">
+            </div>
+            <div class="lang-content active" data-lang="zh">
+                <h1>Sustainable Landscape Lab | 可持续景观实验室</h1>
+                <div class="subtitle">智能感知分析平台</div>
+            </div>
+            <div class="lang-content" data-lang="en">
+                <h1>Sustainable Landscape Lab | 可持续景观实验室</h1>
+                <div class="subtitle">Intelligent Perception Analysis Platform</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="analysis-options">
+        <div class="options-grid">
+            <a href="image-analysis.html" class="option-card">
+                <img src="assets/SVI-LOGO.png" alt="Street View Analysis" class="option-image">
+                <h2 class="option-title">
+                    <span class="lang-inline active" data-lang="zh">街景图像感知评分</span>
+                    <span class="lang-inline" data-lang="en">Street View Image Analysis</span>
+                </h2>
+                <p class="option-description">
+                    <span class="lang-inline active" data-lang="zh">分析街景图像在美观性、活力度、安全性、无聊程度、富裕程度、压抑程度等维度的主观感知分数</span>
+                    <span class="lang-inline" data-lang="en">Analyze subjective perception scores of street view images across dimensions like Beautiful, lively, safe, boring, wealthy, and depressing. </span> 
+                </p>
+                <span class="option-tech">ConvNeXt+Segformer-B5+RF · Place Pulse 2.0 Dataset</span>
+            </a>
+
+            <a href="text-analysis.html" class="option-card">
+                <img src="assets/SMD-LOGO.png" alt="Social Media Analysis" class="option-image">
+                <h2 class="option-title">
+                    <span class="lang-inline active" data-lang="zh">社交媒体文本感知评分</span>
+                    <span class="lang-inline" data-lang="en">Social Media Text Analysis</span>
+                </h2>
+                <p class="option-description">
+                    <span class="lang-inline active" data-lang="zh">分析公园社交媒体文本在可达性、可用性、吸引力、安全感、美感与维护管理等维度的感知分数</span>
+                    <span class="lang-inline" data-lang="en">Analyze the perception scores of park-related social media texts across dimensions including accessibility, usability, attractiveness, safety, aesthetic, and maintenance. </span> 
+                </p>
+                <span class="option-tech">Chinese-RoBERTa-wwm-ext · Park Perception Dataset</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-container">
+            <h2 class="features-title">
+                <span class="lang-inline active" data-lang="zh">平台特色</span>
+                <span class="lang-inline" data-lang="en">Platform Features</span>
+            </h2>
+            <div class="features-title-en">
+            </div>
+            <p class="features-subtitle">
+                <span class="lang-inline active" data-lang="zh">先进的深度学习技术，精准的感知分析能力</span>
+                <span class="lang-inline" data-lang="en">Advanced deep learning technology with precise perception analysis capabilities</span>
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">
+                        <span class="lang-inline active" data-lang="zh">精准分析</span>
+                        <span class="lang-inline" data-lang="en">Precise Analysis</span>
+                    </h3>
+                    <div class="feature-title-en">
+                    </div>
+                    <p class="feature-description">
+                        <span class="lang-inline active" data-lang="zh">基于大规模数据集训练的深度学习模型，提供高精度的感知分析结果</span>
+                        <span class="lang-inline" data-lang="en">Deep learning models trained on large-scale datasets provide high-precision perception analysis results</span>
+                    </p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">
+                        <span class="lang-inline active" data-lang="zh">快速响应</span>
+                        <span class="lang-inline" data-lang="en">Fast Response</span>
+                    </h3>
+                    <div class="feature-title-en">
+                    </div>
+                    <p class="feature-description">
+                        <span class="lang-inline active" data-lang="zh">优化的模型推理引擎，实现秒级分析响应，提升用户体验</span>
+                        <span class="lang-inline" data-lang="en">Optimized model inference engine achieves second-level analysis response, enhancing user experience</span>
+                    </p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">
+                        <span class="lang-inline active" data-lang="zh">多维度评估</span>
+                        <span class="lang-inline" data-lang="en">Multi-dimensional Assessment</span>
+                    </h3>
+                    <div class="feature-title-en">
+                    </div>
+                    <p class="feature-description">
+                        <span class="lang-inline active" data-lang="zh">支持多个感知维度的独立分析，满足不同研究需求</span>
+                        <span class="lang-inline" data-lang="en">Supports independent analysis of multiple perception dimensions to meet diverse research needs</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="map-container">
+            <div class="visitor-stats">
+                <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=ffffff&w=a&t=tt&d=fZRic9xGtBdqRs3jIow32BHpqATvQwPpk4mU22gURkU&co=b9dd40&cmo=3acc3a&cmn=ff5353&ct=ffffff"></script>
+            </div>
+        </div>
+
+        <div class="footer-logo">
+            <img src="assets/logo-White.png" alt="SLA Logo" class="footer-logo-image">
+        </div>
+        <div class="footer-text">
+            Sustainable Landscape Lab | 可持续景观实验室
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://sla-lab.com/contact/" target="_blank" style="color: white; text-decoration: none; font-size: 1rem; font-weight: 500; opacity: 0.9; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
+                <span class="lang-inline active" data-lang="zh">联系我们</span><span class="lang-inline" data-lang="en">Contact Us</span> →
+            </a>
+        </div>
+        <div class="footer-text2">
+            粤ICP备2025447876号-1
+        </div>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(function() {
+            // --- 语言切换功能 ---
+            const langButtons = document.querySelectorAll('.lang-button');
+            const langContents = document.querySelectorAll('.lang-content');
+            const langInlines = document.querySelectorAll('.lang-inline');
+            let currentLang = 'zh';
+
+            function updateLanguageDisplay(selectedLang) {
+                langButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === selectedLang));
+                langContents.forEach(content => content.classList.toggle('active', content.getAttribute('data-lang') === selectedLang));
+                langInlines.forEach(inline => inline.classList.toggle('active', inline.getAttribute('data-lang') === selectedLang));
+                currentLang = selectedLang;
+            }
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedLang = this.getAttribute('data-lang');
+                    if (selectedLang !== currentLang) {
+                        updateLanguageDisplay(selectedLang);
+                        localStorage.setItem('preferred-language', selectedLang);
+                    }
+                });
+            });
+
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang) {
+                updateLanguageDisplay(savedLang);
+            }
+        });
+    </script>
+
+</body>
+</html>

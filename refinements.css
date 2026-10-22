@@ -1,0 +1,255 @@
+/* Limited refinements to the original layout. Original styles.css is retained. */
+[hidden] { display: none !important; }
+html { scroll-padding-top: 88px; }
+img { max-width: 100%; }
+button, input { font-family: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a, button, input, summary, [tabindex] { outline-offset: 4px; }
+:focus-visible { outline: 2px solid var(--accent); }
+.container, .hero-text, .hero-media, .card, .paper-card, .paper-body,
+.patent-content, .grid-2 > *, .skills-grid > * { min-width: 0; }
+.hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); }
+.hero-media { padding-left: clamp(12px, 2.5vw, 30px); }
+.avatar-card { margin-left: 0; }
+.hero-actions { margin-top: 22px !important; }
+
+/* Keep image sizes steady and the original warm accents. Pointer motion is below. */
+.btn, .chip, .nav a, .pill, .hover-lift, .paper-card, .reviewer-item,
+.competition-item, .patent-item, .award-item {
+  transition: background-color .2s ease, border-color .2s ease,
+    color .2s ease, box-shadow .2s ease;
+}
+.nav a:hover, .btn:hover, .chip:hover, .pill:hover, .hover-lift:hover,
+.paper-card:hover, .reviewer-item:hover, .competition-item:hover,
+.patent-item:hover, .award-item:hover, .feature:hover,
+.paper-card.reveal.is-visible:hover, .feature.reveal.is-visible:hover,
+.card.hover-lift:hover, .contact-card.hover-lift:hover, .screenshot-card.hover-lift:hover,
+.card.hover-lift.reveal.is-visible:hover, .contact-card.hover-lift.reveal.is-visible:hover,
+.screenshot-card.hover-lift.reveal.is-visible:hover {
+  transform: none;
+}
+.paper-card:hover, .card.hover-lift:hover, .competition-item:hover,
+.reviewer-item:hover, .patent-item:hover {
+  box-shadow: 0 10px 28px rgba(21,21,20,.075);
+  border-color: rgba(231,105,42,.32);
+}
+.btn:hover, .hero-actions .btn.primary:hover {
+  box-shadow: 0 6px 18px rgba(21,21,20,.08);
+}
+.pill:hover { box-shadow: none; }
+.chip:hover { color: var(--accent); box-shadow: none; }
+.chip.active:hover { color: #fff; }
+.chip.active { box-shadow: 0 5px 14px rgba(231,105,42,.16); }
+.reviewer-journal-cover img, .reviewer-item:hover .reviewer-journal-cover img,
+.screenshot-card img, .screenshot-card:hover img, .drawing-a0, .drawing-a0:hover {
+  transform: none;
+  transition: none;
+}
+.drawing-a0 { cursor: default; max-width: none; }
+.drawing-a0:hover { box-shadow: var(--shadow-soft); }
+.reviewer-journal-cover.logo-cover { background: #fff; }
+.reviewer-journal-cover.logo-cover img { padding: 18px; object-fit: contain; }
+.scroll-ring::after { animation: floatDot 1.8s ease-in-out infinite; }
+
+/* A short, once-only entrance; content remains visible with scripts disabled. */
+.reveal { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+.js .reveal.reveal-pending { opacity: 0; transform: translateY(10px); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Keep the recognition and citation line in the biography's normal text flow. */
+.cast-recognition { border: 0; padding: 0; margin: 15px 0 0; font-size: 15px; line-height: 1.75; }
+.cast-recognition strong { font-weight: 650; color: #4e4a45; }
+.bio-zh { font-size: .8em; font-weight: 400; color: var(--muted); }
+.scholar-inline { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 11px; margin: 12px 0 0; font-size: 12px; line-height: 1.7; }
+.scholar-inline strong { font-size: 14px; font-weight: 650; color: #55504a; }
+.metric-separator { color: #b6afa8; }
+
+/* Keep two-column, image-first publication cards; allow all metadata to wrap. */
+.paper-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.paper-top { flex-wrap: wrap; align-items: flex-start; gap: 8px; }
+.paper-meta { flex: 1 1 210px; min-width: 0; flex-wrap: wrap; line-height: 1.6; }
+.paper-date { white-space: nowrap; }
+.paper-category { font-weight: 500; line-height: 1.4; }
+.paper-title { line-height: 1.4; overflow-wrap: anywhere; }
+.paper-title a { transition: color .18s ease; }
+.paper-title a:hover { color: #b34d1e; }
+.paper-authors { line-height: 1.65; }
+.paper-media { position: relative; background: #fff; }
+.paper-media img { object-fit: contain; }
+.paper-figure-link { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.figure-hint { position: absolute; right: 10px; bottom: 8px; padding: 3px 7px; color: #8d3f19; background: rgba(255,255,255,.94); border: 1px solid rgba(197,190,188,.55); border-radius: 6px; font-size: 10px; opacity: 0; transition: opacity .18s ease; }
+.paper-figure-link:hover .figure-hint, .paper-figure-link:focus-visible .figure-hint { opacity: 1; }
+.paper-file-links { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11px; margin: 5px 0 11px; color: #ad4b20; }
+.paper-file-links a { padding-block: 3px; }
+.paper-file-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.paper-file-links > span { color: var(--muted); }
+.paper-author-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: 12px; margin-bottom: 10px; }
+.paper-author-row .paper-authors { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.paper-author-row .paper-file-links { margin: 0; justify-content: flex-end; white-space: nowrap; }
+.paper-details summary { min-height: 28px; padding-block: 3px; font-weight: 650; }
+.paper-abstract { line-height: 1.75; }
+.pub-toolbar > .filters { flex: 1 1 580px; }
+.filters { gap: 8px; }
+.searchbox { flex: 1 1 320px; min-width: 0; width: 100%; }
+.searchbox input { flex: 1; width: auto; min-width: 0; }
+.searchbox input:focus { box-shadow: 0 0 0 3px rgba(231,105,42,.10); }
+.count { flex: 0 0 auto; }
+.publication-empty { text-align: center; border: 1px dashed var(--line); border-radius: 18px; padding: 30px 18px; color: var(--muted); }
+.publication-empty p { margin: 0 0 12px; }
+
+/* Original honors cards: no expansion, clipped fade, or page-height jump. */
+.timeline-card { align-self: start; }
+.timeline-years { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 13px; }
+.year-chip { border: 1px solid rgba(197,190,188,.65); border-radius: 999px; background: rgba(255,255,255,.65); color: var(--muted); padding: 6px 10px; min-height: 32px; font-size: 11px; cursor: pointer; transition: background-color .18s, color .18s, border-color .18s; }
+.year-chip:hover { border-color: rgba(231,105,42,.55); color: #b34d1e; }
+.year-chip.active { color: #a4471e; background: rgba(231,105,42,.10); border-color: rgba(231,105,42,.4); }
+.timeline-card .timeline { height: 430px; margin: 0; padding-right: 12px; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.timeline-card .timeline::before { display: none; }
+.timeline-card .timeline-marker::before { content: ''; position: absolute; left: 12px; width: 2px; background: rgba(197,190,188,.65); top: 7px; bottom: -22px; }
+.timeline-card .timeline-item:last-child .timeline-marker::before { display: none; }
+.timeline-card .timeline-dot { position: relative; z-index: 1; }
+.timeline-card .timeline-item { padding-block: 10px; }
+.timeline-hint { font-size: 11px; color: var(--muted); margin: 13px 0 0; }
+.timeline-card .timeline::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.timeline-card .timeline::-webkit-scrollbar-track { background: rgba(197,190,188,.14); border-radius: 4px; }
+.timeline-card .timeline::-webkit-scrollbar-thumb { background: rgba(231,105,42,.4); border-radius: 4px; }
+
+/* Preserve horizontal strips; add unobtrusive controls and a visible scrollbar. */
+.strip-controls { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.strip-arrow { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(197,190,188,.75); border-radius: 50%; background: rgba(255,255,255,.7); color: var(--ink); font-size: 17px; cursor: pointer; transition: background-color .18s, color .18s, border-color .18s; }
+.strip-arrow:hover:not(:disabled) { color: #b34d1e; border-color: rgba(231,105,42,.5); background: #fff; }
+.strip-arrow:disabled { opacity: .35; cursor: default; }
+#competitionList { margin-top: 12px; align-items: flex-start; }
+.reviewer-list-horizontal, .competition-list-horizontal { max-width: 100%; scrollbar-width: thin; scrollbar-color: rgba(231,105,42,.35) rgba(197,190,188,.12); scroll-snap-type: x proximity; padding-top: 3px; }
+.reviewer-list-horizontal::-webkit-scrollbar, .competition-list-horizontal::-webkit-scrollbar { height: 6px; }
+.reviewer-list-horizontal::-webkit-scrollbar-track, .competition-list-horizontal::-webkit-scrollbar-track { background: rgba(197,190,188,.12); border-radius: 6px; }
+.reviewer-list-horizontal::-webkit-scrollbar-thumb, .competition-list-horizontal::-webkit-scrollbar-thumb { background: rgba(231,105,42,.35); border-radius: 6px; }
+.reviewer-item, .competition-item { scroll-snap-align: start; }
+.reviewer-journal-name { overflow-wrap: anywhere; }
+
+/* Text wrapping fixes; no changes to the original patent arrangement on desktop. */
+.patent-title-row { gap: 10px; flex-wrap: wrap; }
+.patent-title { flex: 1 1 220px; line-height: 1.5; }
+.patent-authors { margin-top: 6px; line-height: 1.5; }
+.patent-date { flex-shrink: 0; }
+
+@media (max-width: 1000px) {
+  .nav-toggle { display: block; flex-shrink: 0; }
+  .nav { position: absolute; right: 22px; top: 68px; flex-direction: column; align-items: stretch; gap: 0; background: rgba(255,255,255,.97); border: 1px solid rgba(197,190,188,.75); border-radius: 18px; box-shadow: var(--shadow); padding: 8px; min-width: 220px; max-width: calc(100vw - 44px); display: none; }
+  .nav.open { display: flex; }
+  .nav a { padding: 11px 13px; }
+}
+@media (min-width: 761px) and (max-width: 980px) {
+  .hero-grid { grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 24px; }
+  .paper-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .grid-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .skills-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .hero-media { min-height: 0; padding-left: 6px; }
+  .ielts-breakdown { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ielts-item { padding-inline: 7px; gap: 5px; }
+}
+@media (max-width: 840px) {
+  .hero-grid { grid-template-columns: minmax(0,1fr); gap: 30px; }
+  .hero-media { padding-left: 0; min-height: 0; display: flex; justify-content: center; }
+  .avatar-card { width: min(340px,100%); margin: 0; }
+  .hero h1 { font-size: clamp(38px,7vw,58px); }
+  .hero .kicker { font-size: 16px !important; letter-spacing: .08em; }
+  .skills-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ielts-card { grid-column: 1/-1; }
+  .ielts-breakdown { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .ielts-item { padding-inline: 10px; }
+}
+@media (max-width: 760px) {
+  .paper-grid, .grid-2 { grid-template-columns: minmax(0,1fr); }
+  .section-head { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .paper-card { border-radius: 22px; }
+  .competition-item { flex-basis: min(420px,100%); max-width: 100%; }
+  .reviewer-item { flex-basis: 200px; max-width: min(200px,100%); }
+  .timeline-card .timeline { height: 390px; }
+  .hero { padding-top: 42px; }
+}
+@media (max-width: 560px) {
+  .container { padding-inline: 18px; }
+  .hero-actions { gap: 8px; }
+  .hero-actions .btn { padding: 10px 13px; font-size: 13px; }
+  .skills-grid { grid-template-columns: minmax(0,1fr); }
+  .ielts-card { grid-column: auto; }
+  .ielts-breakdown { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .filters { gap: 6px; }
+  .chip { padding: 8px 10px; font-size: 12px; }
+  .searchbox { gap: 8px; }
+  .searchbox input { padding-inline: 12px; font-size: 13px; }
+  .count { font-size: 12px; }
+  .paper-body { padding: 14px; }
+  .paper-meta { font-size: 12px; }
+  .paper-details summary { min-height: 36px; }
+  .timeline-card .timeline { height: 390px; }
+  .timeline-title { line-height: 1.55; }
+  .timeline-note { line-height: 1.65; font-size: 12px; }
+  .year-chip { min-height: 36px; }
+  .patent-item { flex-wrap: wrap; gap: 12px; padding: 16px; }
+  .patent-content { flex-basis: 100%; }
+  .patent-title { font-size: 14px; }
+  .patent-title-row { gap: 8px; }
+  .patent-authors { font-size: 12px; }
+  .drawing-a0 { max-height: 310px; }
+  .nav { right: 18px; max-width: calc(100vw - 36px); }
+}
+@media (hover: none) { .figure-hint { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .js .reveal.reveal-pending { opacity: 1; transform: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+@media print {
+  .timeline-card .timeline { height: auto; overflow: visible; }
+  .timeline-item[hidden] { display: flex !important; }
+  .timeline-years, .strip-controls { display: none; }
+  .reveal, .js .reveal.reveal-pending { opacity: 1; transform: none; }
+}
+/* Keep the orange contact button legible on hover. */
+.nav a.nav-cta:hover { background: var(--accent-2); color: #fff; }
+
+/* Gentle hover motion returns on pointer devices; reviewer images stay still. */
+.btn, .chip, .nav a, .pill, .paper-card, .card.hover-lift, .avatar-card.hover-lift,
+.competition-item, .patent-item {
+ transition: transform .22s ease, opacity .5s ease, background-color .2s ease,
+   color .2s ease, border-color .2s ease, box-shadow .22s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+ .btn:hover, .chip:hover { transform: translateY(-2px); }
+ .nav a:hover, .pill:hover { transform: translateY(-1px); }
+ .paper-card:hover, .paper-card.reveal.is-visible:hover,
+ .card.hover-lift:hover, .card.hover-lift.reveal.is-visible:hover,
+ .avatar-card.hover-lift:hover, .competition-item:hover, .patent-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(21,21,20,.09);
+ }
+ .reviewer-item:hover { transform: none; }
+}
+/* Keep the competition strip compact and reduce its following gap. */
+#honors.section { padding-bottom: 14px; }
+#patents.section { padding-top: 22px; }
+.competition-drawings { height: auto; align-items: flex-start; }
+.competition-drawings .drawing-a0 { height: auto; max-height: 290px; width: auto; object-fit: contain; }
+#competition-tencent .competition-drawings { height: auto; }
+#competition-tencent .competition-drawing-column { flex: 0 0 min(100%, 310px); min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+#competition-tencent .drawing-a0 { display: block; width: 100%; height: auto; max-height: none; }
+.competition-info { flex: 0 0 auto; }
+.competition-note { font-size: 12px; line-height: 1.6; margin: 0; }
+.competition-links { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12px; color: #b34d1e; }
+.competition-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.project-row + .project-row { margin-top: 22px; }
+@media (max-width: 560px) {
+ .cast-recognition { font-size: 14px; }
+ .scholar-inline { gap: 5px 8px; font-size: 11px; }
+ .scholar-inline strong { font-size: 13px; }
+ .competition-drawings .drawing-a0 { max-height: 235px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .scroll-ring::after { animation: none; }
+ .btn:hover, .chip:hover, .nav a:hover, .pill:hover,
+ .paper-card:hover, .paper-card.reveal.is-visible:hover,
+ .card.hover-lift:hover, .card.hover-lift.reveal.is-visible:hover,
+ .avatar-card.hover-lift:hover, .competition-item:hover, .patent-item:hover { transform: none; }
+}

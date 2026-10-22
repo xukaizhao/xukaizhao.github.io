@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Texts Analysis | 社交媒体文本分析 - Sustainable Landscape Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 0;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-link:hover {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgb(185, 221, 64);
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-button {
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+
+        .lang-button.active {
+            border-color: rgb(185, 221, 64);
+            background: rgb(185, 221, 64);
+            color: white;
+        }
+
+        .lang-button:hover {
+            border-color: rgb(185, 221, 64);
+        }
+
+        /* Hide/Show content based on language */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        .lang-inline {
+            display: none;
+        }
+
+        .lang-inline.active {
+            display: inline;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Research Papers Section */
+        .research-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .papers-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+        }
+
+        .paper-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            padding: 30px; 
+            padding-bottom: 0px
+        }
+
+        .paper-content {
+            padding: 40px;
+        }
+
+        .paper-title {
+            font-size: 1.4rem; /* UNIFIED */
+            color: #333;
+            margin-bottom: 15px; /* UNIFIED */
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .paper-authors {
+            color: #666;
+            font-size: 1rem; /* UNIFIED */
+            margin-bottom: 10px; /* UNIFIED */
+            font-weight: 500;
+        }
+
+        .paper-doi {
+            color: #b0b0b0;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .paper-journal {
+            color: rgb(165, 201, 44);
+            font-size: 1rem; /* UNIFIED */
+            margin-bottom: 10px; /* UNIFIED */
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .paper-abstract {
+            color: #555;
+            font-size: 1rem; /* UNIFIED */
+            line-height: 1.7; /* UNIFIED */
+            margin-bottom: 20px; /* UNIFIED */
+        }
+
+        .paper-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* UNIFIED */
+        }
+
+        .keyword {
+            background: rgba(185, 221, 64, 0.1);
+            color: rgb(165, 201, 44);
+            padding: 6px 12px; /* UNIFIED */
+            border-radius: 15px; /* UNIFIED */
+            font-size: 0.85rem; /* UNIFIED */
+            font-weight: 500;
+        }
+
+        /* --- STYLES FOR UPGRADED 'TRY' SECTION --- */
+        .try-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            margin-top: 60px;
+            text-align: left;
+        }
+
+        .try-title {
+            font-size: 2rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300; /* UNIFIED */
+            letter-spacing: -0.02em;
+        }
+        
+        .try-description {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .model-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .model-card {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            background-color: #fdfdfd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            border-color: rgba(185, 221, 64, 0.5);
+        }
+
+        .model-card.selected {
+            border-color: rgb(185, 221, 64);
+            background-color: rgba(185, 221, 64, 0.05);
+            box-shadow: 0 12px 40px rgba(185, 221, 64, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .model-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #333;
+        }
+        .model-dimensions {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.8;
+            margin-top: 8px;
+            
+        }
+        .model-dimensions .dim-item {
+            display: inline-block;
+            background: rgba(185, 221, 64, 0.2);
+            color: rgb(165, 201, 44);
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-top: 8px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            
+        }
+        
+        #commentSelectionInterface { display: none; margin-top: 40px; }
+        
+        .step-title {
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+            color: rgb(165, 201, 44);
+        }
+
+        .comment-option {
+            padding: 20px;
+            background: white; /* UPDATED */
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* ADDED */
+        }
+        
+        .comment-option:hover {
+            border-color: rgba(185, 221, 64, 0.8); /* UPDATED */
+            transform: translateY(-5px); /* UPDATED */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* ADDED */
+        }
+
+        .comment-option.selected {
+            border-color: rgb(185, 221, 64);
+            background-color: rgba(185, 221, 64, 0.1);
+            transform: translateY(-5px); /* UPDATED */
+        }
+
+        #analysisProgress { text-align: center; margin: 40px 0; display: none; }
+        #analysisProgress .spinner {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #textResultsSection { display: none; margin-top: 40px; }
+        
+        .selected-comment-display {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border-left: 5px solid rgb(185, 221, 64);
+            color: #333;
+            font-size: 1.05rem;
+        }
+        #selectedCommentText {
+            text-indent: 2em;
+        }
+
+        .dimension-result-card {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+        }
+        .dimension-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: #333; }
+        .prob-bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .prob-label { min-width: 120px; font-size: 0.9rem; color: #555; font-weight: 500;}
+        .prob-progress { flex: 1; height: 18px; background: #e9ecef; border-radius: 9px; overflow: hidden; }
+        .prob-fill { height: 100%; transition: width 0.8s ease; }
+        .prob-value { min-width: 60px; text-align: right; font-weight: 600; font-size: 0.9rem; margin-left: 20px;}
+        
+        /* === UPDATED COLOR PALETTE === */
+        .prob-fill-pos { background: rgb(165, 201, 44); } /* 积极: 沿用主色系 */
+        .prob-fill-neg { background: rgb(221, 122, 84); } /* 消极: 替换为和谐的赤陶色 */
+        .prob-fill-neu { background: rgb(189, 189, 189); } /* 无关/中性: 替换为更柔和的灰色 */
+
+        .winning-bar {
+            border-color: rgba(185, 221, 64, 0.8);
+            background-color: rgba(185, 221, 64, 0.08);
+        }
+
+        /* === UPDATED BUTTON STYLE === */
+        #tryAnotherBtn {
+            background: rgb(185, 221, 64);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        #tryAnotherBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .try-section, .paper-content {
+                padding: 30px 20px;
+            }
+            .main-content {
+                padding: 0 20px;
+            }
+            .model-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgb(185, 221, 64);
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-text2 {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-top: 25px;
+            letter-spacing: -0.01em;
+        }
+
+        .map-container {
+            max-width: 700px; /* Set a maximum width for the map's decorative container */
+            width: 90%; /* Ensure it's responsive on smaller screens */
+            margin: 0 auto 50px; /* Center the container and add bottom margin */
+            border-radius: 15px; /* Add rounded corners */
+            overflow: hidden; /* This makes sure the inner map respects the rounded corners */
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SLA Logo" class="logo-image">
+            </a>
+            
+            <nav>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="index.html" class="nav-link"><span class="lang-inline active" data-lang="zh">主页</span><span class="lang-inline" data-lang="en">Home</span></a></li>
+                        <li class="nav-item"><a href="https://sla-lab.com/" class="nav-link" target="_blank"><span class="lang-inline active" data-lang="zh">团队介绍</span><span class="lang-inline" data-lang="en">Team</span></a></li>
+                        <li class="nav-item"><a href="image-analysis.html" class="nav-link"><span class="lang-inline active" data-lang="zh">街景图像分析</span><span class="lang-inline" data-lang="en">Street View Analysis</span></a></li>
+                        <li class="nav-item"><a href="text-analysis.html" class="nav-link active"><span class="lang-inline active" data-lang="zh">社交媒体文本分析</span><span class="lang-inline" data-lang="en">Social Media Analysis</span></a></li>
+                    </ul>
+                    <div class="language-switcher">
+                        <button class="lang-button active" data-lang="zh">中文</button>
+                        <button class="lang-button" data-lang="en">English</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+<p style="text-align:center;color:#687665;font-size:0.9rem;margin:12px 20px 24px;"><span class="lang-inline active" data-lang="zh">研究演示：展示预先计算的模型结果。</span><span class="lang-inline" data-lang="en">Research demo: displays precomputed model results.</span></p>
+        <div class="page-header">
+            <div class="lang-content active" data-lang="zh">
+                <h1 class="page-title">社交媒体文本分析</h1>
+                <p class="page-subtitle">
+                    基于自建的公园感知数据集（已公开），训练Chinese-RoBERTa-wwm-ext等模型，能够有效对公园社交媒体文本的可达性、可用性、吸引力、安全感、美感与维护管理等维度进行评分。
+                </p>
+            </div>
+            <div class="lang-content" data-lang="en">
+                <h1 class="page-title">Social Media Text Analysis</h1>
+                <p class="page-subtitle">
+                    By training the Chinese-RoBERTa-wwm-ext model on a self-constructed park perception dataset, we can effectively evaluate park-related social media texts across multiple dimensions, including accessibility, usability, attractiveness, safety, aesthetics, and maintenance.
+                </p>
+            </div>
+        </div>
+
+            <div class="papers-grid">
+                <a href="paper-detail-2.html" class="paper-card">
+                    <img src="assets/SCS1.jpg" alt="Social Media Analysis Research 1" class="paper-image">
+                    <div class="paper-content">
+                        <h3 class="paper-title">Assessing and interpreting perceived park accessibility, usability and attractiveness through texts and images from social media</h3>
+                        <div class="paper-authors">Xukai Zhao, Yuxing Lu, Wenwen Huang, and Guangsi Lin*</div>
+                        <div class="paper-authors">赵旭凯 陆宇星 黄雯雯 林广思*</div>
+                        <div class="paper-journal">Sustainable Cities and Society (2024) (JCR Q1, IF=12.0)</div>
+                        <div class="paper-doi">https://doi.org/10.1016/j.scs.2024.105619</div>
+                        <p class="paper-abstract">
+                            This study introduces the Park Dual-modal Perception (PDP) model, which uniquely combines text and image analysis from social media data to evaluate public perceptions of urban parks. Applied to 130 parks in Guangzhou, the model achieved 86.81% accuracy in assessing accessibility, usability, and attractiveness, outperforming standard models.
+                        </p>
+                        <div class="paper-keywords">
+                            <span class="keyword">Urban park</span>
+                            <span class="keyword">Public perception</span>
+                            <span class="keyword">Natural language processing</span>
+                            <span class="keyword">Computer vision</span>
+                            <span class="keyword">Social media data</span>
+                        </div>
+                    </div>
+                </a>
+        
+                <a href="paper-detail-3.html" class="paper-card">
+                    <img src="assets/SCS2.jpg" alt="Social Media Analysis Research 2" class="paper-image">
+                    <div class="paper-content">
+                        <h3 class="paper-title">Exploring temporal and spatial patterns and nonlinear driving mechanism of park perceptions: A multi-source big data study</h3>
+                        <div class="paper-authors">Xukai Zhao, He Huang, Guangsi Lin*, and Yuxing Lu</div>
+                        <div class="paper-authors">赵旭凯 黄鹤 林广思* 陆宇星</div>
+                        <div class="paper-journal">Sustainable Cities and Society (2025) (JCR Q1, IF=12.0)</div>
+                        <div class="paper-doi">https://doi.org/10.1016/j.scs.2024.106083</div>
+                        <p class="paper-abstract">
+                            This research uses a fine-tuned Chinese-RoBERTa-wwm-ext model to analyze over 150,000 online comments on 270 parks in Beijing and Guangzhou, assessing perceived accessibility, usability, and attractiveness. The study identifies significant seasonal and spatial patterns in park use and employs machine learning to determine the nonlinear drivers behind public perceptions.
+                        </p>
+                        <div class="paper-keywords">
+                            <span class="keyword">Urban park</span>
+                            <span class="keyword">Perception</span>
+                            <span class="keyword">Social media data</span>
+                            <span class="keyword">Natural language processing</span>
+                            <span class="keyword">Two-step floating catchment area method</span>
+                            <span class="keyword">Explainable machine learning</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="paper-detail-4.html" class="paper-card">
+                    <img src="assets/UFUG.jpg" alt="Social Media Analysis Research 3" class="paper-image">
+                    <div class="paper-content">
+                        <h3 class="paper-title">How to quantify multidimensional perception of urban parks? Integrating deep learning-based social media data analysis with questionnaire survey methods</h3>
+                        <div class="paper-authors">Wenwen Huang, Xukai Zhao, Guangsi Lin*, Zhifang Wang, and Mengyun Chen</div>
+                        <div class="paper-authors">黄雯雯 赵旭凯 林广思* 王志芳 陈梦芸</div>
+                        <div class="paper-journal">Urban Forestry & Urban Greening (2025) (JCR Q1, IF=6.7)</div>
+                        <div class="paper-doi">https://doi.org/10.1016/j.ufug.2025.128754</div>
+                        <p class="paper-abstract">
+                            This paper develops a deep learning model based on ERNIE to assess six dimensions of urban park perception—accessibility, safety, aesthetics, attractiveness, maintenance, and usability—using social media data. The model's effectiveness, achieving over 80% accuracy, was validated by comparing its results with a traditional questionnaire survey.
+                        </p>
+                        <div class="paper-keywords">
+                            <span class="keyword">Multidimensional Perception</span>
+                            <span class="keyword">Urban Parks</span>
+                            <span class="keyword">Deep Learning</span>
+                            <span class="keyword">Social Media Analysis</span>
+                            <span class="keyword">Survey Methods</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        <section class="try-section" id="trySection">
+            <h2 class="try-title">
+                <span class="lang-inline active" data-lang="zh">开始试用</span>
+                <span class="lang-inline" data-lang="en">Start Trial</span>
+            </h2>
+            <p class="try-description">
+                <span class="lang-inline active" data-lang="zh">请选择模型与示例评论，浏览预先计算的多维感知结果。</span>
+                <span class="lang-inline" data-lang="en">Select a model and an example comment to explore precomputed perception results.</span>
+            </p>
+
+            <div id="modelSelector" class="model-selector">
+                <div class="model-card" data-model="high_accuracy_model">
+                    <strong class="model-title">
+                        <span class="lang-inline active" data-lang="zh">高精度模型</span><span class="lang-inline" data-lang="en">High-Accuracy Model</span>
+                    </strong>
+                    <div class="model-dimensions">
+                        <span class="lang-inline active" data-lang="zh">Chinese-RoBERTa-wwm-ext</span><span class="lang-inline" data-lang="en">Dimensions:</span><br>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">可达性</span><span class="lang-inline" data-lang="en">Accessibility</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">可用性</span><span class="lang-inline" data-lang="en">Usability</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">吸引力</span><span class="lang-inline" data-lang="en">Attractiveness</span></span>
+                    </div>
+                </div>
+                <div class="model-card" data-model="multi_dimension_model">
+                    <strong class="model-title">
+                        <span class="lang-inline active" data-lang="zh">多维度模型</span><span class="lang-inline" data-lang="en">Multi-Dimension Model</span>
+                    </strong>
+                    <div class="model-dimensions">
+                        <span class="lang-inline active" data-lang="zh">ERNIE</span><span class="lang-inline" data-lang="en">Dimensions:</span><br>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">美感</span><span class="lang-inline" data-lang="en">Aesthetics</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">安全感</span><span class="lang-inline" data-lang="en">Safety</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">维护管理</span><span class="lang-inline" data-lang="en">Maintenance</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">可达性</span><span class="lang-inline" data-lang="en">Accessibility</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">可用性</span><span class="lang-inline" data-lang="en">Usability</span></span>
+                        <span class="dim-item"><span class="lang-inline active" data-lang="zh">吸引力</span><span class="lang-inline" data-lang="en">Attractiveness</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="commentSelectionInterface">
+                 <h3 class="step-title">
+                    <span class="lang-inline active" data-lang="zh">第二步：选择一条评论开始分析</span>
+                    <span class="lang-inline" data-lang="en">Step 2: Select a Comment to Analyze</span>
+                 </h3>
+                <div id="commentLoader" style="text-align: center; padding: 40px 20px; display: none;">
+                    <div class="spinner" style="font-size: 2.5rem; margin-bottom: 15px; animation: spin 1.5s linear infinite; display: inline-block;">🔄</div>
+                    <p style="font-size: 1rem; color: #666;">
+                        <span class="lang-inline active" data-lang="zh">正在加载评论...</span>
+                        <span class="lang-inline" data-lang="en">Loading comments...</span>
+                    </p>
+                </div>
+                <div id="commentGrid"></div>
+            </div>
+
+            <div id="analysisProgress">
+                <div class="spinner">🔄</div>
+                <h3>
+                    <span class="lang-inline active" data-lang="zh">正在分析中...</span>
+                    <span class="lang-inline" data-lang="en">Analyzing...</span>
+                </h3>
+            </div>
+
+            <div id="textResultsSection">
+                <div class="selected-comment-display">
+                    <p id="selectedCommentText"></p>
+                </div>
+                <h3 style="margin-bottom: 30px; text-align: center; font-weight: 400; font-size: 1.5rem;">
+                    <span class="lang-inline active" data-lang="zh">各维度情感概率分析</span><span class="lang-inline" data-lang="en">Sentiment Probability Analysis by Dimension</span>
+                </h3>
+                <div id="resultsContainer"></div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button id="tryAnotherBtn">
+                        <span class="lang-inline active" data-lang="zh">返回重选</span><span class="lang-inline" data-lang="en">Try Another</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        
+        <div class="map-container">
+            <div class="visitor-stats">
+                <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=ffffff&w=a&t=tt&d=fZRic9xGtBdqRs3jIow32BHpqATvQwPpk4mU22gURkU&co=b9dd40&cmo=3acc3a&cmn=ff5353&ct=ffffff"></script>
+            </div>
+        </div>
+
+        <div class="footer-logo">
+            <img src="assets/logo-White.png" alt="SLA Logo" class="footer-logo-image">
+        </div>
+        <div class="footer-text">
+            Sustainable Landscape Lab | 可持续景观实验室
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://sla-lab.com/contact/" target="_blank" style="color: white; text-decoration: none; font-size: 1rem; font-weight: 500; opacity: 0.9; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
+                <span class="lang-inline active" data-lang="zh">联系我们</span><span class="lang-inline" data-lang="en">Contact Us</span> →
+            </a>
+        </div>
+        <div class="footer-text2">
+            粤ICP备2025447876号-1
+        </div>
+    </footer>
+
+<script src="assets/data/text-analysis-data.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- LANGUAGE SWITCHING LOGIC (No changes needed here) ---
+        const langButtons = document.querySelectorAll('.lang-button');
+        const langContents = document.querySelectorAll('.lang-content');
+        let currentLang = 'zh';
+
+        function updateLanguageDisplay(selectedLang) {
+            const langInlines = document.querySelectorAll('.lang-inline');
+            langButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-lang') === selectedLang));
+            langContents.forEach(content => content.classList.toggle('active', content.getAttribute('data-lang') === selectedLang));
+            langInlines.forEach(inline => inline.classList.toggle('active', inline.getAttribute('data-lang') === selectedLang));
+            currentLang = selectedLang;
+            try { localStorage.setItem('preferred-language', selectedLang); } catch (_) {}
+        }
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedLang = this.getAttribute('data-lang');
+                updateLanguageDisplay(selectedLang);
+            });
+        });
+
+        let savedLang; try { savedLang = localStorage.getItem('preferred-language'); } catch (_) {}
+        if (savedLang) {
+            updateLanguageDisplay(savedLang);
+        } else {
+            updateLanguageDisplay('zh');
+        }
+
+        // --- TEXT ANALYSIS LOGIC (REVISED) ---
+        let allTextData = {};
+        let dataLoadingPromise = null; // This will hold the promise for the data fetch
+        let currentModelData = [];
+        let selectedComment = null;
+
+        const modelSelector = document.getElementById('modelSelector');
+        const modelCards = document.querySelectorAll('.model-card');
+        const commentSelectionInterface = document.getElementById('commentSelectionInterface');
+        const commentLoader = document.getElementById('commentLoader'); // Get the new loader element
+        const commentGrid = document.getElementById('commentGrid');
+        const analysisProgress = document.getElementById('analysisProgress');
+        const textResultsSection = document.getElementById('textResultsSection');
+        const selectedCommentText = document.getElementById('selectedCommentText');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const tryAnotherBtn = document.getElementById('tryAnotherBtn');
+
+        const sentimentLabels = {
+            0: { zh: '消极', en: 'Negative', class: 'prob-fill-neg' },
+            1: { zh: '积极', en: 'Positive', class: 'prob-fill-pos' },
+            2: { zh: '无关/中性', en: 'Irrelevant/Neutral', class: 'prob-fill-neu' }
+        };
+        
+        const dimensionDisplayNames = {
+            accessibility: { zh: "可达性", en: "Accessibility" },
+            usability: { zh: "可用性", en: "Usability" },
+            attractiveness: { zh: "吸引力", en: "Attractiveness" },
+            aesthetics: { zh: "美感", en: "Aesthetics" },
+            safety: { zh: "安全感", en: "Safety" },
+            maintenance: { zh: "维护管理", en: "Maintenance" }
+        };
+
+        // Load bundled data before any network fallback (supports file:// and GitHub Pages).
+        function loadTextData() {
+            dataLoadingPromise = Promise.resolve(window.PERCEPTION_DEMO_TEXT)
+                .then(async data => {
+                    if (!data) {
+                        const response = await fetch('assets/text-analysis-data.json');
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
+                        data = await response.json();
+                    }
+                    if (!Array.isArray(data.high_accuracy_model) || !Array.isArray(data.multi_dimension_model)) {
+                        throw new Error('Invalid demo dataset');
+                    }
+                    allTextData = data;
+                    return true;
+                })
+                .catch(error => {
+                    console.error('Could not load the bundled examples:', error);
+                    modelSelector.innerHTML = `<p style="text-align:center;">
+                        <span class="lang-inline" data-lang="zh">示例数据暂时无法读取，请重新打开完整网站目录或刷新页面。</span>
+                        <span class="lang-inline" data-lang="en">Examples are unavailable. Please reopen the complete site folder or refresh.</span>
+                    </p>`;
+                    updateLanguageDisplay(currentLang);
+                    return false;
+                });
+        }
+
+        // The click listener is now an async function
+        modelCards.forEach(card => {
+            card.addEventListener('click', async () => {
+                const modelKey = card.dataset.model;
+                
+                // 1. Update UI immediately
+                modelCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                
+                commentSelectionInterface.style.display = 'block';
+                textResultsSection.style.display = 'none';
+                
+                // Show loader and hide the grid
+                commentLoader.style.display = 'block';
+                commentGrid.style.display = 'none';
+
+                commentSelectionInterface.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                try {
+                    // 2. Wait for the data fetch to complete
+                    if (!await dataLoadingPromise) throw new Error('Examples unavailable');
+                    
+                    // 3. Once data is loaded, proceed
+                    currentModelData = allTextData[modelKey] || [];
+                    
+                    // Hide loader, show grid, and display the comments
+                    commentLoader.style.display = 'none';
+                    commentGrid.style.display = 'block';
+                    displayRandomComments();
+
+                } catch (error) {
+                    // This block will run if the data fetch failed
+                    console.error("Cannot display comments because data failed to load.", error);
+                    commentLoader.style.display = 'none';
+                    commentGrid.style.display = 'block';
+                    commentGrid.innerHTML = `<p style="color:red; text-align:center;">
+                        <span class="lang-inline active" data-lang="zh">无法加载评论，请刷新页面后重试。</span>
+                        <span class="lang-inline" data-lang="en">Could not load comments. Please refresh the page and try again.</span>
+                    </p>`;
+                    updateLanguageDisplay(currentLang);
+                }
+            });
+        });
+        
+        function displayRandomComments() {
+            commentGrid.innerHTML = '';
+            if (!currentModelData || currentModelData.length === 0) {
+                 commentGrid.innerHTML = `<p style="text-align:center; color:#666;">
+                    <span class="lang-inline active" data-lang="zh">此模型暂无示例评论。</span>
+                    <span class="lang-inline" data-lang="en">No example comments available for this model.</span>
+                 </p>`;
+                 updateLanguageDisplay(currentLang);
+                 return;
+            }
+            
+            const shuffled = [...currentModelData].sort(() => 0.5 - Math.random());
+            const commentsToDisplay = shuffled.slice(0, 5);
+
+            commentsToDisplay.forEach(commentData => {
+                const div = document.createElement('div');
+                div.className = 'comment-option';
+                div.textContent = commentData.comment;
+                div.onclick = () => {
+                    document.querySelectorAll('.comment-option').forEach(el => el.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedComment = commentData;
+                    startAnalysis();
+                };
+                commentGrid.appendChild(div);
+            });
+        }
+        
+        function startAnalysis() {
+            commentSelectionInterface.style.display = 'none';
+            modelSelector.style.display = 'none';
+            analysisProgress.style.display = 'block';
+            analysisProgress.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+                analysisProgress.style.display = 'none';
+                showResults();
+            }, 2000);
+        }
+
+        function showResults() {
+            if (!selectedComment) return;
+
+            selectedCommentText.textContent = `“${selectedComment.comment}”`;
+            resultsContainer.innerHTML = '';
+
+            for (const [dimKey, dimData] of Object.entries(selectedComment.dimensions)) {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'dimension-result-card';
+                
+                const dimName = dimensionDisplayNames[dimKey] || { zh: dimKey, en: dimKey };
+                let cardHTML = `<h4 class="dimension-title"><span class="lang-inline" data-lang="zh">${dimName.zh}</span><span class="lang-inline" data-lang="en">${dimName.en}</span></h4>`;
+                
+                Object.keys(sentimentLabels).forEach(key => {
+                    const index = parseInt(key, 10);
+                    const prob = dimData.probabilities[index];
+                    const labelInfo = sentimentLabels[index];
+                    const isWinning = index === dimData.score;
+
+                    cardHTML += `
+                        <div class="prob-bar-container ${isWinning ? 'winning-bar' : ''}">
+                            <span class="prob-label"><span class="lang-inline" data-lang="zh">${labelInfo.zh}</span><span class="lang-inline" data-lang="en">${labelInfo.en}</span></span>
+                            <div class="prob-progress">
+                                <div class="prob-fill ${labelInfo.class}" style="width: ${prob * 100}%"></div>
+                            </div>
+                            <span class="prob-value">${(prob * 100).toFixed(1)}%</span>
+                        </div>
+                    `;
+                });
+                resultCard.innerHTML = cardHTML;
+                resultsContainer.appendChild(resultCard);
+            }
+            textResultsSection.style.display = 'block';
+            updateLanguageDisplay(currentLang);
+            textResultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        tryAnotherBtn.addEventListener('click', () => {
+            modelSelector.style.display = 'grid';
+            textResultsSection.style.display = 'none';
+            commentSelectionInterface.style.display = 'none';
+            document.querySelectorAll('.model-card').forEach(el => el.classList.remove('selected'));
+            modelSelector.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Initialize by starting the data fetch process
+        loadTextData();
+    });
+    </script>
+</body>
+</html>

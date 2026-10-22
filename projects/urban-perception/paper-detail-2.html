@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Detail - Social Media Analysis 1 | Sustainable Landscape Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .figure-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.02em;
+        }
+
+        .back-button {
+            background: rgb(185, 221, 64);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgb(165, 201, 44);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .paper-hero {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .paper-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .paper-content {
+            padding: 50px;
+        }
+
+        .paper-title {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .paper-meta {
+            margin-bottom: 30px;
+        }
+
+        .paper-authors {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .paper-journal {
+            color: rgb(165, 201, 44);
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .paper-abstract {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .paper-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-top: 10px;
+        }
+
+        .keyword {
+            background: rgba(185, 221, 64, 0.1);
+            color: rgb(165, 201, 44);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .try-model-button {
+            background: rgb(185, 221, 64);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .try-model-button:hover {
+            background: rgb(165, 201, 44);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(185, 221, 64, 0.3);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .paper-content {
+                padding: 30px;
+            }
+
+            .paper-title {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: rgb(185, 221, 64);
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: -0.01em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SLA Logo" class="logo-image">
+            </a>
+            <a href="text-analysis.html" class="back-button">← 返回分析页面</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="paper-hero">
+            <div class="paper-content">
+                <h1 class="paper-title">Assessing and interpreting perceived park accessibility, usability and attractiveness through texts and images from social media</h1>
+                
+                <div class="paper-meta">
+                    <div class="paper-authors">Xukai Zhao, Yuxing Lu, Wenwen Huang, and Guangsi Lin*</div>
+                    <div class="paper-authors">赵旭凯 陆宇星 黄雯雯 林广思*</div>
+                    <div class="paper-journal">Sustainable Cities and Society (2024) (JCR Q1, IF=12.0)</div>
+                </div>
+
+                <div class="paper-abstract">
+                    <p>Understanding public perceptions of urban parks is essential for their effective management. While conventional survey methods are resource-intensive, Social Media Data (SMD) offers a cost-effective alternative to gathering public insights. However, using SMD for park perception assessment remains challenges, particularly in integrating text and image analysis and filtering irrelevant content to identify influencing factors across various dimensions. Based on a manually curated dataset, this study introduces the Park Dual-modal Perception (PDP) model, a cutting-edge approach combining SMD text and image analysis to evaluate perceived park accessibility, usability, and attractiveness with an average accuracy of 86.81%, outperforming the commonly used BERT model by 8.26%. Utilizing SMD from 130 parks in Guangzhou, the model effectively quantifies the three dimensions, generating visual scoring maps to identify parks with lower perceived scores at the urban scale. Further incorporation of SHapley Additive exPlanations (SHAP) within the PDP model filters 82.79% of irrelevant words and extracts 158 thematic words and 954 associated words, providing targeted suggestions for park improvements. Our findings indicate that (1) factors such as distance, travel time, ticket prices, and proximity to commercial amenities critically influence park accessibility. (2) Park usability hinges on park’s ability to serve diverse groups and provide well-maintained, multifunctional facilities. (3) Park attractiveness is closely linked with the cultural and regulatory characteristics of ecosystem services. Our methodology combines assessment and interpretation of public perceptions at both city and park scales. It aids decision-makers in identifying low-rated parks and understanding the underlying reasons, thereby facilitating more informed urban planning decisions.
+                </div>
+
+                <div class="paper-keywords">
+                    <span class="keyword">Urban park</span>
+                    <span class="keyword">Public perception</span>
+                    <span class="keyword">Natural language processing</span>
+                    <span class="keyword">Computer vision</span>
+                    <span class="keyword">Social media data</span>
+                </div>
+                <div class="figures-section" style="margin: 40px 0;">
+                    <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 30px; font-weight: 600;">主要图表 | Main Figures and Tables</h3>
+                    
+                    <div class="figures-grid" style="display: grid; gap: 30px;">
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/1.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 1</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Research framework.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/2.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 2</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Study area and geographical spatial distribution of the studied parks.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/3.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 3</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Structure of the PDP model.</p>
+                        </div>
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Table 2</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Overview of data distribution. <br> This park perception dataset is avaliable at: https://ars.els-cdn.com/content/image/1-s2.0-S2210670724009053-mmc1.xlsx</p>
+                            <img src="assets/paper2/T2.jpg" class="figure-image"> 
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Table 3</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">ACC of different models.</p>
+                            <img src="assets/paper2/T3.jpg" class="figure-image">
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/4.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 4</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Interpretation procedure of integrating SHAP within the PDP model. Usability is presented as an example to show the steps after “SHAP Value Calculation”. The same procedure applies to the other two dimensions.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/5.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 5</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Training curves of the accuracy and loss on the test set regarding 2 models.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/6.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 6</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">The measurement results within the case study area. (a) Aggregating score for every park. (b, c) Average scores by administrative district. (d) Regression analysis results.</p>
+                        </div>
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/7.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 7</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">An example of SHAP-based keyword extraction results.</p>
+                        </div>
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/T5.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Table 5</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Comparative analysis of keyword extraction.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/8.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 8</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Clusters related to park accessibility.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/9.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 9</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Clusters related to park usability.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/10.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 10</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Clusters related to park attractiveness.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper2/11.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 11</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Negative lexicon in Huolushan Forest Park.</p>
+                        </div>
+
+                        </div>
+                </div>
+
+                <a href="text-analysis.html#trySection" class="try-model-button">Try the Model</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="assets/logo-White.png" alt="SLA Logo" class="footer-logo-image">
+        </div>
+        <div class="footer-text">
+            Sustainable Landscape Lab | 可持续景观实验室
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://sla-lab.com/contact/" target="_blank" style="color: white; text-decoration: none; font-size: 1rem; font-weight: 500; opacity: 0.9; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
+                联系我们 | Contact Us →
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,162 +1,176 @@
-(function(){
-  const year = document.getElementById("year");
-  if(year){ year.textContent = String(new Date().getFullYear()); }
+(() => {
+  'use strict';
+  const $ = (selector, parent = document) => parent.querySelector(selector);
+  const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+  document.documentElement.classList.add('js');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const year = $('#year');
+  if (year) year.textContent = String(new Date().getFullYear());
 
-  const navToggle = document.querySelector(".nav-toggle");
-  const nav = document.querySelector(".nav");
-  if(navToggle && nav){
-    navToggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
-
-    nav.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => {
-        if(nav.classList.contains("open")){
-          nav.classList.remove("open");
-          navToggle.setAttribute("aria-expanded", "false");
-        }
-      });
-    });
+  const navToggle = $('.nav-toggle');
+  const nav = $('.nav');
+  function closeMenu(restoreFocus = false) {
+    nav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
+    if (restoreFocus) navToggle.focus();
   }
+  navToggle.addEventListener('click', () => {
+    const open = !nav.classList.contains('open');
+    nav.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  $$('a', nav).forEach(link => link.addEventListener('click', () => closeMenu()));
+  document.addEventListener('click', event => {
+    if (!nav.contains(event.target) && !navToggle.contains(event.target)) closeMenu();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.classList.contains('open')) closeMenu(true);
+  });
+  window.matchMedia('(min-width: 1001px)').addEventListener('change', event => {
+    if (event.matches) closeMenu();
+  });
 
-  const revealEls = Array.from(document.querySelectorAll(".reveal"));
-  if("IntersectionObserver" in window){
-    const io = new IntersectionObserver((entries) => {
+  // Short, once-only reveal. No motion is required to access any content.
+  const revealElements = $$('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion.matches) {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('reveal-pending');
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => io.observe(el));
-  }else{
-    revealEls.forEach(el => el.classList.add("is-visible"));
+    }, { threshold: 0.04 });
+    revealElements.forEach(element => {
+      element.classList.add('reveal-pending');
+      observer.observe(element);
+    });
+    reduceMotion.addEventListener('change', event => {
+      if (event.matches) {
+        observer.disconnect();
+        revealElements.forEach(element => element.classList.remove('reveal-pending'));
+      }
+    });
   }
 
-  const chips = Array.from(document.querySelectorAll(".chip"));
-  const cards = Array.from(document.querySelectorAll(".paper-card"));
-  const search = document.getElementById("pubSearch");
-  const count = document.getElementById("pubCount");
-
-  let activeFilter = "All";
-  let activeQuery = "";
-
-  function normalize(text){
-    return String(text || "").toLowerCase().trim();
-  }
-
-  function apply(){
+  // Keep the original publication grid and all cards visible by default.
+  const chips = $$('.chip[data-filter]');
+  const cards = $$('.paper-card');
+  const search = $('#pubSearch');
+  const count = $('#pubCount');
+  const empty = $('#publicationEmpty');
+  const normalize = value => String(value || '').normalize('NFKC').toLowerCase().trim();
+  const index = new Map(cards.map(card => [card, normalize(`${card.dataset.search || ''} ${card.textContent}`)]));
+  let activeFilter = 'All';
+  function filterPapers(revealResults = false) {
+    const terms = normalize(search.value).split(/\s+/).filter(Boolean);
     let visible = 0;
     cards.forEach(card => {
-      const cat = card.getAttribute("data-category") || "";
-      const hay = normalize(card.textContent);
-      const okFilter = (activeFilter === "All") || (cat === activeFilter);
-      const okQuery = !activeQuery || hay.includes(activeQuery);
-      const show = okFilter && okQuery;
-      card.style.display = show ? "" : "none";
-      if(show){ visible += 1; }
+      const show = (activeFilter === 'All' || card.dataset.category === activeFilter) &&
+        terms.every(term => index.get(card).includes(term));
+      card.hidden = !show;
+      // Filtering should never leave revealed results stuck transparent.
+      if (show && revealResults) card.classList.remove('reveal-pending');
+      visible += Number(show);
     });
-    if(count){ count.textContent = String(visible); }
+    count.textContent = String(visible);
+    empty.hidden = visible !== 0;
   }
-
-  chips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      chips.forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      activeFilter = chip.getAttribute("data-filter") || "All";
-      apply();
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    activeFilter = chip.dataset.filter;
+    chips.forEach(button => {
+      const active = button === chip;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
     });
+    filterPapers(true);
+  }));
+  search.addEventListener('input', () => filterPapers(true));
+  $('#resetPublications').addEventListener('click', () => {
+    search.value = '';
+    chips.find(chip => chip.dataset.filter === 'All').click();
+    search.focus();
   });
+  filterPapers();
 
-  if(search){
-    search.addEventListener("input", () => {
-      activeQuery = normalize(search.value);
-      apply();
-    });
-  }
-
-  apply();
-
-  // Copy to clipboard helpers
-  const copyButtons = Array.from(document.querySelectorAll("[data-copy]"));
-  function fallbackCopy(text){
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.setAttribute("readonly", "");
-    ta.style.position = "absolute";
-    ta.style.left = "-9999px";
-    document.body.appendChild(ta);
-    ta.select();
-    try{ document.execCommand("copy"); }catch(e){}
-    document.body.removeChild(ta);
-  }
-
-  copyButtons.forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const text = btn.getAttribute("data-copy") || "";
-      const original = btn.textContent;
-      try{
-        if(navigator.clipboard && navigator.clipboard.writeText){
-          await navigator.clipboard.writeText(text);
-        }else{
-          fallbackCopy(text);
-        }
-        btn.textContent = "Copied";
-        btn.classList.add("copied");
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.classList.remove("copied");
-        }, 1200);
-      }catch(e){
-        fallbackCopy(text);
-        btn.textContent = "Copied";
-        setTimeout(() => { btn.textContent = original; }, 1200);
-      }
-    });
-  });
-
-  // Collapsible sections - show first 3 items, rest collapsed
-  const collapsibleHeaders = Array.from(document.querySelectorAll(".collapsible-header"));
-  collapsibleHeaders.forEach(header => {
-    const targetId = header.getAttribute("data-target");
-    const content = document.getElementById(targetId);
-    
-    if(content){
-      // Initially show partial content (first 3 items)
-      header.classList.add("collapsed");
-      content.classList.add("collapsed");
-      
-      header.addEventListener("click", () => {
-        const isCollapsed = header.classList.toggle("collapsed");
-        content.classList.toggle("collapsed", isCollapsed);
-        content.classList.toggle("expanded", !isCollapsed);
+  // Honor panels keep a stable viewport and support year filtering and scrolling.
+  $$('.timeline-years').forEach(controls => {
+    const list = document.getElementById(controls.dataset.timeline);
+    const items = $$('.timeline-item', list);
+    const hint = $('.timeline-hint', list.parentElement);
+    $$('[data-timeline-year]', controls).forEach(button => button.addEventListener('click', () => {
+      const selectedYear = button.dataset.timelineYear;
+      let visible = 0;
+      items.forEach(item => {
+        const show = selectedYear === 'all' ||
+          (selectedYear === 'earlier' ? Number(item.dataset.year) < 2025 : item.dataset.year === selectedYear);
+        item.hidden = !show;
+        visible += Number(show);
       });
-    }
+      $$('[data-timeline-year]', controls).forEach(item => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      list.scrollTop = 0;
+      hint.textContent = 'Scroll to browse';
+    }));
   });
 
-  // Visitor statistics (placeholder - integrate with your analytics service)
-  const visitorCountEl = document.getElementById("visitorCount");
-  if(visitorCountEl){
-    // Example: You can replace this with actual visitor count from your analytics
-    // For now, using localStorage as a simple counter
-    let count = parseInt(localStorage.getItem('visitorCount') || '0');
-    count += 1;
-    localStorage.setItem('visitorCount', count.toString());
-    
-    // Animate counter
-    let current = 0;
-    const target = count;
-    const increment = Math.ceil(target / 50);
-    const timer = setInterval(() => {
-      current += increment;
-      if(current >= target){
-        current = target;
-        clearInterval(timer);
-      }
-      visitorCountEl.textContent = current.toLocaleString();
-    }, 30);
+  // Original horizontal image strips, with optional arrows and touch scrolling.
+  const strips = ['reviewerList', 'competitionList'].map(id => document.getElementById(id));
+  function updateStrip(strip) {
+    const buttons = $$(`[data-scroll-target="${strip.id}"]`);
+    buttons.forEach(button => {
+      const previous = button.dataset.direction === '-1';
+      button.disabled = previous ? strip.scrollLeft <= 2 :
+        strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 2;
+    });
   }
+  strips.forEach(strip => {
+    $$(`[data-scroll-target="${strip.id}"]`).forEach(button => button.addEventListener('click', () => {
+      strip.scrollBy({ left: Number(button.dataset.direction) * Math.max(220, strip.clientWidth * .7),
+        behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    }));
+    strip.addEventListener('scroll', () => updateStrip(strip), { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(() => updateStrip(strip)).observe(strip);
+    updateStrip(strip);
+  });
+  window.addEventListener('resize', () => strips.forEach(updateStrip));
+
+  // Preserve the original copy-link button with truthful success/failure feedback.
+  async function copyText(value) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try { await navigator.clipboard.writeText(value); return true; } catch (_) { /* Use selectable fallback. */ }
+    }
+    const field = document.createElement('textarea');
+    field.value = value;
+    field.setAttribute('readonly', '');
+    field.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.appendChild(field);
+    field.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (_) { /* Report failure. */ }
+    field.remove();
+    return ok;
+  }
+  $$('[data-copy], [data-copy-path]').forEach(button => {
+    const original = button.textContent;
+    let timer;
+    button.addEventListener('click', async () => {
+      clearTimeout(timer);
+      const value = button.dataset.copyPath ? new URL(button.dataset.copyPath, document.baseURI).href : button.dataset.copy;
+      const ok = await copyText(value);
+      button.textContent = ok ? 'Copied' : 'Could not copy';
+      button.classList.toggle('copied', ok);
+      button.focus({ preventScroll: true });
+      timer = setTimeout(() => {
+        button.textContent = original;
+        button.classList.remove('copied');
+      }, 1800);
+    });
+  });
 })();

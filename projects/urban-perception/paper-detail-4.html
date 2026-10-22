@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Detail - Social Media Analysis 3 | Sustainable Landscape Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .figure-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.02em;
+        }
+
+        .back-button {
+            background: rgb(185, 221, 64);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgb(165, 201, 44);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .paper-hero {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .paper-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .paper-content {
+            padding: 50px;
+        }
+
+        .paper-title {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .paper-meta {
+            margin-bottom: 30px;
+        }
+
+        .paper-authors {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .paper-journal {
+            color: rgb(165, 201, 44);
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .paper-abstract {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .paper-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-top: 10px;
+        }
+
+        .keyword {
+            background: rgba(185, 221, 64, 0.1);
+            color: rgb(165, 201, 44);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .try-model-button {
+            background: rgb(185, 221, 64);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .try-model-button:hover {
+            background: rgb(165, 201, 44);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(185, 221, 64, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgb(185, 221, 64);
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .paper-content {
+                padding: 30px;
+            }
+
+            .paper-title {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SLA Logo" class="logo-image">
+            </a>
+            <a href="text-analysis.html" class="back-button">← 返回分析页面</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="paper-hero">
+            <div class="paper-content">
+                <h1 class="paper-title">How to quantify multidimensional perception of urban parks? Integrating deep learning-based social media data analysis with questionnaire survey methods</h1>
+                
+                <div class="paper-meta">
+                    <div class="paper-authors">Wenwen Huang, Xukai Zhao, Guangsi Lin*, Zhifang Wang, and Mengyun Chen</div>
+                    <div class="paper-authors">黄雯雯 赵旭凯 林广思* 王志芳 陈梦芸</div>
+                    <div class="paper-journal">Urban Forestry & Urban Greening (2025) (JCR Q1, IF=6.7)</div>
+                </div>
+
+                <div class="paper-abstract">
+                    <p>Urban parks are places where people regularly connect with nature and each other. Quantifying perceptions of urban parks presents significant changes. Recently, social media data has been increasingly used for studying landscape perceptions, preferences, and management. With the advent of deep learning techniques, the performance of NLP tasks has seen considerable improvement. We posed research questions at the methodological level: How could deep learning-based NLP methods be constructed to assess the multidimensional perception (MDP) of urban parks? How could the assessment performance of this method be validated? In this study, we constructed an MDP of urban parks assessment model based on ERNIE and subsequently conducted a questionnaire survey. By comparing the differences and similarities between the two data sets, we verified the model's assessment performance and proposed the application potential of deep learning-based methods. The findings indicated: (1) our model effectively obtained and assessed sentiment information from online reviews about park accessibility, safety, aesthetics, attractiveness, maintenance, and usability with an accuracy rate exceeding 80%. (2) The questionnaire survey data confirmed the model's high efficacy, showing consistency in accessibility, aesthetics, and maintenance, but inconsistency in attractiveness and usability due to differences in data expression and timeliness. (3)Deep learning-based NLP methods significantly enhanced sentiment analysis of social media data, showing great potential for practical applications. The results could enhance the performance of sentiment analysis on social media data, serving as a decision-aid tool for park managers and policymakers, and providing valuable insights and guidance for park construction and management.</p>
+                </div>
+
+                <div class="paper-keywords">
+                    <span class="keyword">Multidimensional Perception</span>
+                    <span class="keyword">Urban Parks</span>
+                    <span class="keyword">Deep Learning</span>
+                    <span class="keyword">Social Media Analysis</span>
+                    <span class="keyword">Survey Methods</span>
+                </div>
+
+                <div class="figures-section" style="margin: 40px 0;">
+                    <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 30px; font-weight: 600;">主要图表 | Main Figures and Tables</h3>
+                    
+                    <div class="figures-grid" style="display: grid; gap: 30px;">
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/1.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 1</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Locations and photos of four case parks in Guangzhou, China.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/2.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 2</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Sequential mixed-methods design.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/3.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 3</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Modeling the MDP of urban parks assessment model using deep learning-based NLP methods.</p>
+                        </div>
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/4.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 4</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Manually annotating each comment (ground truth) with a label.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/5.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 5</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Co-occurrence network graph of high-frequency keywords.</p>
+                        </div>
+
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/6.jpg" class="figure-image"> <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 6</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Demographic characteristics of the respondents.</p>
+                        </div>
+                        
+                        <div class="figure-item" style="background: #f8f9fa; border-radius: 15px; padding: 25px; border-left: 4px solid rgb(185, 221, 64);">
+                            <img src="assets/paper4/7.jpg" class="figure-image">  <h4 style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">Figure 7</h4>
+                            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Distribution of respondents' perceptions across the six dimensions of urban parks.</p>
+                        </div>
+
+
+                        </div>
+                </div>
+                
+                <a href="text-analysis.html#trySection" class="try-model-button">Try the Model</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="assets/logo-White.png" alt="SLA Logo" class="footer-logo-image">
+        </div>
+        <div class="footer-text">
+            Sustainable Landscape Lab | 可持续景观实验室
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://sla-lab.com/contact/" target="_blank" style="color: white; text-decoration: none; font-size: 1rem; font-weight: 500; opacity: 0.9; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
+                联系我们 | Contact Us →
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

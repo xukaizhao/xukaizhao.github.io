@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street View Images Analysis | 街景图像分析 - Sustainable Landscape Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 0;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-link:hover {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active {
+            color: rgb(185, 221, 64);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgb(185, 221, 64);
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-button {
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+
+        .lang-button.active {
+            border-color: rgb(185, 221, 64);
+            background: rgb(185, 221, 64);
+            color: white;
+        }
+
+        .lang-button:hover {
+            border-color: rgb(185, 221, 64);
+        }
+
+        /* Hide/Show content based on language */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        .lang-inline {
+            display: none;
+        }
+
+        .lang-inline.active {
+            display: inline;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Research Papers Section */
+        .research-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+        }
+
+        .paper-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            padding: 30px; 
+            padding-bottom: 0px
+        }
+
+        .paper-content {
+            padding: 40px;
+        }
+
+        .paper-title {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .paper-authors {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .paper-doi {
+            color: #b0b0b0;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .paper-journal {
+            color: rgb(165, 201, 44);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .paper-abstract {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .paper-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .keyword {
+            background: rgba(185, 221, 64, 0.1);
+            color: rgb(165, 201, 44);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Try Now Section */
+        .try-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-top: 60px;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .try-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+            border-color: rgba(185, 221, 64, 0.3);
+        }
+
+        .try-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .try-description {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .language-switcher {
+                margin-left: 0;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .paper-content {
+                padding: 25px;
+            }
+
+            .try-section {
+                padding: 30px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Image Selection Styles */
+        .image-option {
+            position: relative;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: rgba(185, 221, 64, 0.5);
+        }
+
+        .image-option.selected {
+            border-color: rgb(185, 221, 64);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(185, 221, 64, 0.3);
+        }
+
+        .image-option img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-option .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 15px 10px 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .image-option.selected .image-overlay {
+            background: linear-gradient(transparent, rgba(185, 221, 64, 0.9));
+        }
+
+        /* Progress Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #analysisProgress div:first-child {
+            animation: spin 2s linear infinite;
+        }
+
+        /* Score Bar Styles */
+        .score-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 0;
+        }
+
+        .score-label {
+            min-width: 100px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .score-progress {
+            flex: 1;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 0 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgb(185, 221, 64), rgb(165, 201, 44));
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+        
+        /* Styles for score and probability */
+        .score-details {
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .score-value {
+            font-weight: 700;
+            color: rgb(165, 201, 44);
+            font-size: 1.1rem;
+        }
+
+        .score-probability {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 2px;
+        }
+
+        /* Semantic Segmentation Chart */
+        .semantic-chart {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .semantic-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .semantic-item:hover {
+            background: rgba(185, 221, 64, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .semantic-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .semantic-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .semantic-percentage {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgb(165, 201, 44);
+        }
+
+        .loading-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+            grid-column: 1 / -1; /* Make message span all columns */
+        }
+
+        /* Footer Styles ADDED */
+        .footer {
+            background: rgb(185, 221, 64);
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-image {
+            height: 60px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            opacity: 0.95;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-text2 {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-top: 25px;
+            letter-spacing: -0.01em;
+        }
+
+        .map-container {
+            max-width: 700px; /* Set a maximum width for the map's decorative container */
+            width: 90%; /* Ensure it's responsive on smaller screens */
+            margin: 0 auto 50px; /* Center the container and add bottom margin */
+            border-radius: 15px; /* Add rounded corners */
+            overflow: hidden; /* This makes sure the inner map respects the rounded corners */
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SLA Logo" class="logo-image">
+            </a>
+            
+            <nav>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="index.html" class="nav-link"><span class="lang-inline active" data-lang="zh">主页</span><span class="lang-inline" data-lang="en">Home</span></a></li>
+                        <li class="nav-item"><a href="https://sla-lab.com/" class="nav-link" target="_blank"><span class="lang-inline active" data-lang="zh">团队介绍</span><span class="lang-inline" data-lang="en">Team</span></a></li>
+                        <li class="nav-item"><a href="image-analysis.html" class="nav-link active"><span class="lang-inline active" data-lang="zh">街景图像分析</span><span class="lang-inline" data-lang="en">Street View Analysis</span></a></li>
+                        <li class="nav-item"><a href="text-analysis.html" class="nav-link"><span class="lang-inline active" data-lang="zh">社交媒体文本分析</span><span class="lang-inline" data-lang="en">Social Media Analysis</span></a></li>
+                    </ul>
+                    <div class="language-switcher">
+                        <button class="lang-button active" data-lang="zh">中文</button>
+                        <button class="lang-button" data-lang="en">English</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+<p style="text-align:center;color:#687665;font-size:0.9rem;margin:12px 20px 24px;"><span class="lang-inline active" data-lang="zh">研究演示：展示预先计算的模型结果。</span><span class="lang-inline" data-lang="en">Research demo: displays precomputed model results.</span></p>
+        <div class="page-header">
+            <div class="lang-content active" data-lang="zh">
+                <h1 class="page-title">街景图像感知分析</h1>
+                <p class="page-subtitle">
+                    使用在Place Pulse 2.0数据集上训练的"SegFormer-B5+ConvNeXt-B+RF"模型，对街景图像的美观性、活力与安全等维度进行主观感知评估，旨在为城市规划与更新提供精准的决策支持
+                </p>
+            </div>
+            <div class="lang-content" data-lang="en">
+                <h1 class="page-title">Street View Image Perception Analysis</h1>
+                <p class="page-subtitle">
+                    This study utilizes the "SegFormer-B5+ConvNeXt-B+RF" model, trained on the Place Pulse 2.0 dataset, to assess subjective perceptions of street view images—including beauty, liveliness, depress, wealth, boredom and safety—to inform targeted decisions in urban planning and renewal
+                </p>
+            </div>
+        </div>
+
+        <section class="research-section">
+            <a href="paper-detail-1.html" class="paper-card">
+                <img src="assets/EAAI.jpg" alt="Street View Analysis Research" class="paper-image">
+                <div class="paper-content">
+                    <h3 class="paper-title">An integrated deep learning approach for assessing the visual qualities of built environments utilizing street view images</h3>
+                    <div class="paper-authors">Xukai Zhao, Yuxing Lu, and Guangsi Lin*</div>
+                    <div class="paper-authors">赵旭凯 陆宇星 林广思*</div>
+                    <div class="paper-journal">Engineering Applications of Artificial Intelligence (2024) (JCR Q1, IF=8.0)</div>
+                    <div class="paper-doi">https://doi.org/10.1016/j.engappai.2023.107805</div>
+                    <p class="paper-abstract">
+                        This study presents a novel deep learning model, "SegFormer-B5+ConvNeXt-B+RF," for large-scale visual landscape assessment using street view images. Achieving 78.47% accuracy in predicting six subjective perceptions (e.g., beautiful, safe), the model was applied to Guangzhou's Tianhe District to create perception maps. By integrating SHapley Additive exPlanations (SHAP) and Class Activation Map (CAM) visualizations, the research offers interpretable insights into how objective visual elements influence public perception, providing a valuable tool for targeted urban renewal and sustainable city planning.
+                    </p>
+                    <div class="paper-keywords">
+                        <span class="keyword">Visual landscape assessment</span>
+                        <span class="keyword">Landscape perception</span>
+                        <span class="keyword">Deep learning</span>
+                        <span class="keyword">Built environment</span>
+                        <span class="keyword">Street view images</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <section class="try-section" id="trySection">
+            <div class="lang-content active" data-lang="zh">
+                <h2 class="try-title">开始试用</h2>
+                <p class="try-description">
+                    从示例街景中选择一张，浏览预先计算的语义分割与感知评分。
+                </p>
+            </div>
+            <div class="lang-content" data-lang="en">
+                <h2 class="try-title">Start Trial</h2>
+                <p class="try-description">
+                    Select an example street view to explore precomputed segmentation and perception scores.
+                </p>
+            </div>
+
+            <div id="imageSelectionInterface" style="margin-top: 40px;">
+                <div class="lang-content active" data-lang="zh">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 25px; text-align: center;">选择一张街景图像进行分析</h3>
+                </div>
+                <div class="lang-content" data-lang="en">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 25px; text-align: center;">Select a Street View Image for Analysis</h3>
+                </div>
+                
+                <div id="imageGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="loading-message">
+                        <span class="lang-inline active" data-lang="zh">正在加载街景图像...</span>
+                        <span class="lang-inline" data-lang="en">Loading street view images...</span>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <button id="refreshImages" style="background: #f0f0f0; color: #666; padding: 12px 24px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;">
+                        <span class="lang-inline active" data-lang="zh">🔄 换一批图片</span><span class="lang-inline" data-lang="en">🔄 Refresh Images</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="analysisProgress" style="display: none; text-align: center; margin: 40px 0;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🔄</div>
+                <h3 style="color: #333; margin-bottom: 15px;">
+                    <span class="lang-inline active" data-lang="zh">正在分析中...</span><span class="lang-inline" data-lang="en">Analyzing...</span>
+                </h3>
+                <p style="color: #666; margin-bottom: 25px;">
+                    <span class="lang-inline active" data-lang="zh">正在读取所选街景的示例分析结果</span><span class="lang-inline" data-lang="en">Loading precomputed results for the selected street view</span>
+                </p>
+                <div style="width: 300px; height: 6px; background: #e0e0e0; border-radius: 3px; margin: 0 auto; overflow: hidden;">
+                    <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, rgb(185, 221, 64), rgb(165, 201, 44)); border-radius: 3px; width: 0%; transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+
+            <div id="resultsSection" style="display: none; margin-top: 50px; text-align: left;">
+                <div class="lang-content active" data-lang="zh">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 30px; text-align: center; color: #333;">分析结果</h3>
+                </div>
+                <div class="lang-content" data-lang="en">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 30px; text-align: center; color: #333;">Analysis Results</h3>
+                </div>
+                
+                <div id="selectedImageDisplay" style="text-align: center; margin-bottom: 40px;">
+                    <img id="selectedImage" style="max-width: 400px; max-height: 250px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <p id="selectedImageName" style="color: #666; font-size: 0.9rem; margin-top: 10px;"></p>
+                </div>
+
+                <div style="background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                    <h4 style="color: #333; margin-bottom: 25px; font-size: 1.2rem; border-bottom: 2px solid rgb(185, 221, 64); padding-bottom: 10px;">
+                        <span class="lang-inline active" data-lang="zh">🎯 感知维度评分</span><span class="lang-inline" data-lang="en">🎯 Perception Dimension Scores</span>
+                    </h4>
+                    <div id="perceptionScores"></div>
+                </div>
+
+                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                    <h4 style="color: #333; margin-bottom: 25px; font-size: 1.2rem; border-bottom: 2px solid rgb(185, 221, 64); padding-bottom: 10px;">
+                        <span class="lang-inline active" data-lang="zh">🏗️ 各要素占比（语义分割结果）</span><span class="lang-inline" data-lang="en">🏗️ Semantic Segmentation Results</span>
+                    </h4>
+                    <div id="semanticSegmentation"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button id="tryAnotherBtn" style="background: rgb(185, 221, 64); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        <span class="lang-inline active" data-lang="zh">🔄 分析另一张图片</span><span class="lang-inline" data-lang="en">🔄 Analyze Another Image</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        
+        <div class="map-container">
+            <div class="visitor-stats">
+                <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=ffffff&w=a&t=tt&d=fZRic9xGtBdqRs3jIow32BHpqATvQwPpk4mU22gURkU&co=b9dd40&cmo=3acc3a&cmn=ff5353&ct=ffffff"></script>
+            </div>
+        </div>
+
+        <div class="footer-logo">
+            <img src="assets/logo-White.png" alt="SLA Logo" class="footer-logo-image">
+        </div>
+        <div class="footer-text">
+            Sustainable Landscape Lab | 可持续景观实验室
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://sla-lab.com/contact/" target="_blank" style="color: white; text-decoration: none; font-size: 1rem; font-weight: 500; opacity: 0.9; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
+                <span class="lang-inline active" data-lang="zh">联系我们</span><span class="lang-inline" data-lang="en">Contact Us</span> →
+            </a>
+        </div>
+        <div class="footer-text2">
+            粤ICP备2025447876号-1
+        </div>
+    </footer>
+
+    <script src="assets/data/street-view-data.js"></script>
+<script>
+        // 全局变量
+        let allImageData = [];
+        let selectedImageName = '';
+
+        // --- 步骤 1: 更新配置 ---
+        const semanticCategories = {
+            categories: {
+                'road': { zh: '道路', en: 'Road' },
+                'sidewalk': { zh: '人行道', en: 'Sidewalk' },
+                'building': { zh: '建筑', en: 'Building' },
+                'wall': { zh: '墙', en: 'Wall' },
+                'fence': { zh: '栅栏', en: 'Fence' },
+                'pole': { zh: '电线杆', en: 'Pole' },
+                'traffic light': { zh: '交通灯', en: 'Traffic light' },
+                'traffic sign': { zh: '交通标志', en: 'Traffic sign' },
+                'vegetation': { zh: '植被', en: 'Vegetation' },
+                'terrain': { zh: '地形', en: 'Terrain' },
+                'sky': { zh: '天空', en: 'Sky' },
+                'person': { zh: '行人', en: 'Person' },
+                'rider': { zh: '骑手', en: 'Rider' },
+                'car': { zh: '汽车', en: 'Car' },
+                'truck': { zh: '卡车', en: 'Truck' },
+                'bus': { zh: '公交车', en: 'Bus' },
+                'train': { zh: '火车', en: 'Train' },
+                'motorcycle': { zh: '摩托车', en: 'Motorcycle' },
+                'bicycle': { zh: '自行车', en: 'Bicycle' }
+            },
+            icons: ['🛣️', '🚶', '🏢', '🧱', '🚧', '🚏', '🚦', '🚸', '🌳', '🏔️', '☁️', '👤', '🚴', '🚗', '🚛', '🚌', '🚂', '🏍️', '🚲']
+        };
+        const perceptionDimensions = {
+            beautiful: { zh: '美观性', en: 'Beautiful', icon: '🌸' },
+            safe: { zh: '安全性', en: 'Safe', icon: '🛡️' },
+            lively: { zh: '活力度', en: 'Lively', icon: '⚡' },
+            wealthy: { zh: '富裕程度', en: 'Wealthy', icon: '💎' },
+            boring: { zh: '无聊程度', en: 'Boring', icon: '😴' },
+            depressing: { zh: '压抑程度', en: 'Depressing', icon: '😔' }
+        };
+
+        async function loadAllImageData() {
+            try {
+                let data = window.PERCEPTION_DEMO_IMAGES;
+                if (!data) {
+                    const response = await fetch('assets/街景图像/image-list.json');
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    data = await response.json();
+                }
+                if (!Array.isArray(data.images)) throw new Error('Invalid image dataset');
+                allImageData = data.images;
+                return allImageData;
+            } catch (error) {
+                console.error('加载 image-list.json 失败:', error);
+                return [];
+            }
+        }
+
+        function displayRandomImages() {
+            const imageGrid = document.getElementById('imageGrid');
+            if (allImageData.length === 0) {
+                imageGrid.innerHTML = `<div class="loading-message"><span class="lang-inline" data-lang="zh">街景示例暂时无法读取，请刷新页面或重新打开完整网站目录。</span><span class="lang-inline" data-lang="en">Street-view examples are unavailable. Please refresh or reopen the complete site folder.</span></div>`;
+                updateLanguageDisplay(document.querySelector('.lang-button.active').dataset.lang);
+                return;
+            }
+            const shuffled = [...allImageData].sort(() => 0.5 - Math.random());
+            const imagesToDisplay = shuffled.slice(0, Math.min(8, shuffled.length));
+            imageGrid.innerHTML = '';
+            imagesToDisplay.forEach((imageData, index) => {
+                const imageName = imageData.fileName;
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'image-option';
+                imageDiv.dataset.imageName = imageName;
+                imageDiv.innerHTML = `
+                    <img src="assets/街景图像/${encodeURIComponent(imageName)}" alt="Street View ${index + 1}" onerror="this.alt='Image unavailable — try another example'; this.classList.add('image-unavailable')">
+                    <div class="image-overlay">
+                        <div style="font-size: 0.9rem; opacity: 0.9; font-weight: 500;">
+                            <span class="lang-inline active" data-lang="zh">点击选择</span>
+                            <span class="lang-inline" data-lang="en">Click to select</span>
+                        </div>
+                    </div>
+                `;
+                imageDiv.addEventListener('click', () => selectImage(imageName, imageDiv));
+                imageGrid.appendChild(imageDiv);
+            });
+            updateLanguageDisplay(document.querySelector('.lang-button.active').getAttribute('data-lang'));
+        }
+
+        function selectImage(imageName, imageElement) {
+            document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
+            imageElement.classList.add('selected');
+            selectedImageName = imageName;
+            setTimeout(() => startAnalysis(), 300);
+        }
+
+        function startAnalysis() {
+            document.getElementById('imageSelectionInterface').style.display = 'none';
+            document.getElementById('analysisProgress').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            const progressBar = document.getElementById('progressBar');
+            let progress = 0;
+            const duration = 2500;
+            const interval = 50;
+            const increment = (100 / duration) * interval;
+            const progressInterval = setInterval(() => {
+                progress += increment;
+                progressBar.style.width = Math.min(progress, 100) + '%';
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => queryLocalDataAndShowResults(), 300);
+                }
+            }, interval);
+        }
+
+        function queryLocalDataAndShowResults() {
+            const results = findDataForImage(selectedImageName);
+            if (results) {
+                showResults(results);
+            } else {
+                alert('Could not find data for this image, please try again.');
+                resetToSelection();
+            }
+        }
+
+        function findDataForImage(imageName) {
+            const imageData = allImageData.find(img => img.fileName === imageName);
+            if (!imageData) return null;
+            return {
+                semantic: imageData.semantic_segmentation,
+                perception: imageData.perception_scores
+            };
+        }
+
+        function showResults(data) {
+            document.getElementById('analysisProgress').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            const selectedImage = document.getElementById('selectedImage');
+            const selectedImageNameElement = document.getElementById('selectedImageName');
+            selectedImage.src = `assets/街景图像/${encodeURIComponent(selectedImageName)}`;
+            selectedImage.onerror = function() { this.alt = 'Image unavailable — try another example'; };
+            selectedImageNameElement.textContent = '';
+            displayPerceptionScores(data.perception);
+            displaySemanticSegmentation(data.semantic);
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function displayPerceptionScores(perceptionData) {
+            const container = document.getElementById('perceptionScores');
+            container.innerHTML = '';
+            Object.entries(perceptionDimensions).forEach(([key, dimension]) => {
+                const data = perceptionData[key];
+                if (!data) return;
+                const scoreValue = data.score;
+                const scorePercentage = (scoreValue / 9) * 100;
+                const probability = data.probabilities && data.probabilities.length > scoreValue ? data.probabilities[scoreValue] : 0;
+                const scoreDiv = document.createElement('div');
+                scoreDiv.className = 'score-bar';
+                scoreDiv.innerHTML = `
+                    <div class="score-label">
+                        ${dimension.icon} <span class="lang-inline active" data-lang="zh">${dimension.zh}</span><span class="lang-inline" data-lang="en">${dimension.en}</span>
+                    </div>
+                    <div class="score-progress">
+                        <div class="score-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="score-details">
+                        <div class="score-value">${scoreValue.toFixed(1)}/9</div>
+                        <div class="score-probability">
+                            <span class="lang-inline active" data-lang="zh">置信度:</span><span class="lang-inline" data-lang="en">Confidence:</span>
+                            ${(probability * 100).toFixed(1)}%
+                        </div>
+                    </div>
+                `;
+                container.appendChild(scoreDiv);
+                setTimeout(() => {
+                    scoreDiv.querySelector('.score-fill').style.width = scorePercentage + '%';
+                }, 100);
+            });
+            updateLanguageDisplay(document.querySelector('.lang-button.active').getAttribute('data-lang'));
+        }
+
+        // --- 步骤 2: 修改 displaySemanticSegmentation 函数 ---
+        function displaySemanticSegmentation(semanticData) {
+            const container = document.getElementById('semanticSegmentation');
+            container.innerHTML = '<div class="semantic-chart"></div>';
+            const chartContainer = container.querySelector('.semantic-chart');
+
+            const categoryKeys = Object.keys(semanticCategories.categories);
+
+            const categories = Object.entries(semanticData).map(([categoryKey, percentage]) => {
+                const categoryInfo = semanticCategories.categories[categoryKey] || { zh: categoryKey, en: categoryKey };
+                const iconIndex = categoryKeys.indexOf(categoryKey);
+                const icon = semanticCategories.icons[iconIndex] || '📊';
+                
+                return {
+                    zh: categoryInfo.zh,
+                    en: categoryInfo.en,
+                    icon: icon,
+                    percentage: percentage * 100
+                };
+            });
+
+            categories.sort((a, b) => b.percentage - a.percentage);
+            const topCategories = categories.slice(0, 12);
+
+            topCategories.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'semantic-item';
+                // 生成双语 span
+                itemDiv.innerHTML = `
+                    <div class="semantic-icon">${item.icon}</div>
+                    <div class="semantic-label">
+                        <span class="lang-inline" data-lang="zh">${item.zh}</span>
+                        <span class="lang-inline" data-lang="en">${item.en}</span>
+                    </div>
+                    <div class="semantic-percentage">${item.percentage.toFixed(1)}%</div>
+                `;
+                chartContainer.appendChild(itemDiv);
+            });
+            
+            // 渲染后立即更新语言显示
+            updateLanguageDisplay(document.querySelector('.lang-button.active').getAttribute('data-lang'));
+        }
+
+        function resetToSelection() {
+            document.getElementById('imageSelectionInterface').style.display = 'block';
+            document.getElementById('analysisProgress').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'none';
+            displayRandomImages();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('refreshImages').addEventListener('click', displayRandomImages);
+            document.getElementById('tryAnotherBtn').addEventListener('click', resetToSelection);
+        }
+
+        let updateLanguageDisplay;
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-button');
+            const langContents = document.querySelectorAll('.lang-content');
+            let currentLang = 'zh';
+
+            updateLanguageDisplay = function(selectedLang) {
+                langButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === selectedLang);
+                });
+                // 此处会处理页面上所有带有 .lang-content 和 .lang-inline 的元素
+                langContents.forEach(content => {
+                    content.classList.toggle('active', content.getAttribute('data-lang') === selectedLang);
+                });
+                document.querySelectorAll('.lang-inline').forEach(inline => {
+                    inline.classList.toggle('active', inline.getAttribute('data-lang') === selectedLang);
+                });
+                currentLang = selectedLang;
+                try { localStorage.setItem('preferred-language', selectedLang); } catch (_) {}
+            }
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedLang = this.getAttribute('data-lang');
+                    if (selectedLang !== currentLang) {
+                        updateLanguageDisplay(selectedLang);
+                    }
+                });
+            });
+
+            let savedLang; try { savedLang = localStorage.getItem('preferred-language'); } catch (_) {}
+            updateLanguageDisplay(savedLang || 'zh');
+
+            async function initialize() {
+                await loadAllImageData();
+                displayRandomImages();
+                setupEventListeners();
+            }
+            initialize();
+        });
+    </script>
+</body>
+</html>
