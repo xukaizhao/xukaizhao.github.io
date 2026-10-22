@@ -76,6 +76,10 @@ a, button, input, summary, [tabindex] { outline-offset: 4px; }
 .paper-authors { line-height: 1.65; }
 .paper-media { position: relative; background: #fff; }
 .paper-media img { object-fit: contain; }
+.paper-media-padded img { padding: 3% 4.5%; }
+.paper-crop-frame { position: absolute; inset: 0; display: grid; place-items: center; padding: 3% 4.5%; }
+.paper-crop-viewport { position: relative; display: block; width: 100%; aspect-ratio: 15 / 7; overflow: hidden; }
+.paper-media-cropped .paper-crop-viewport img { position: absolute; top: 0; left: 0; width: 100%; height: auto; padding: 0; }
 .paper-figure-link { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .figure-hint { position: absolute; right: 10px; bottom: 8px; padding: 3px 7px; color: #8d3f19; background: rgba(255,255,255,.94); border: 1px solid rgba(197,190,188,.55); border-radius: 6px; font-size: 10px; opacity: 0; transition: opacity .18s ease; }
 .paper-figure-link:hover .figure-hint, .paper-figure-link:focus-visible .figure-hint { opacity: 1; }
@@ -119,7 +123,9 @@ a, button, input, summary, [tabindex] { outline-offset: 4px; }
 .strip-arrow { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(197,190,188,.75); border-radius: 50%; background: rgba(255,255,255,.7); color: var(--ink); font-size: 17px; cursor: pointer; transition: background-color .18s, color .18s, border-color .18s; }
 .strip-arrow:hover:not(:disabled) { color: #b34d1e; border-color: rgba(231,105,42,.5); background: #fff; }
 .strip-arrow:disabled { opacity: .35; cursor: default; }
-#competitionList { margin-top: 12px; align-items: flex-start; }
+#competitionList { margin-top: 8px; align-items: stretch; padding-bottom: 8px; }
+#competitionList > .competition-item { height: auto; align-self: stretch; }
+#competition-gallery { padding-bottom: 10px; }
 .reviewer-list-horizontal, .competition-list-horizontal { max-width: 100%; scrollbar-width: thin; scrollbar-color: rgba(231,105,42,.35) rgba(197,190,188,.12); scroll-snap-type: x proximity; padding-top: 3px; }
 .reviewer-list-horizontal::-webkit-scrollbar, .competition-list-horizontal::-webkit-scrollbar { height: 6px; }
 .reviewer-list-horizontal::-webkit-scrollbar-track, .competition-list-horizontal::-webkit-scrollbar-track { background: rgba(197,190,188,.12); border-radius: 6px; }
@@ -227,24 +233,62 @@ a, button, input, summary, [tabindex] { outline-offset: 4px; }
  }
  .reviewer-item:hover { transform: none; }
 }
-/* Keep the competition strip compact and reduce its following gap. */
-#honors.section { padding-bottom: 14px; }
-#patents.section { padding-top: 22px; }
-.competition-drawings { height: auto; align-items: flex-start; }
-.competition-drawings .drawing-a0 { height: auto; max-height: 290px; width: auto; object-fit: contain; }
-#competition-tencent .competition-drawings { height: auto; }
-#competition-tencent .competition-drawing-column { flex: 0 0 min(100%, 310px); min-width: 0; display: flex; flex-direction: column; gap: 10px; }
-#competition-tencent .drawing-a0 { display: block; width: 100%; height: auto; max-height: none; }
-.competition-info { flex: 0 0 auto; }
-.competition-note { font-size: 12px; line-height: 1.6; margin: 0; }
+/* Internship entries follow the page's existing typography and spacing. */
+#experience.section { padding-top: 8px; padding-bottom: 28px; }
+#experience .section-head { margin-bottom: 14px; }
+.experience-panel { padding: 14px 22px; background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(248,242,233,.82)); }
+.experience-list { display: grid; gap: 16px; list-style: none; padding: 0; margin: 0; }
+.experience-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 12px 28px; padding: 0; }
+.experience-copy { min-width: 0; }
+.experience-copy h3 { margin: 0 0 5px; font-size: 16px; line-height: 1.5; font-weight: 700; }
+.experience-zh { color: var(--muted); font-size: 12px; font-weight: 400; line-height: 1.65; }
+h3 .experience-zh { margin-left: 8px; }
+p.experience-zh { margin: 0 0 5px; }
+.experience-role { margin: 0; font-size: 13px; line-height: 1.65; color: #625c56; }
+.experience-period { margin: 3px 0 0; white-space: nowrap; font-size: 12px; line-height: 1.65; color: var(--muted); }
+
+/* Each project keeps the original left-copy/right-image arrangement in one frame. */
+#urban .project-row { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 28px; padding: 22px; }
+.project-copy { min-width: 0; padding: 4px; }
+.project-kicker { margin: 0 0 9px; font-size: 10px; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; color: #a45b35; }
+.project-copy h3 { margin: 0 0 10px; font-size: 21px; font-weight: 750; line-height: 1.3; color: var(--ink); }
+.project-description { margin: 0; font-size: 13px; line-height: 1.75; max-width: 48ch; }
+.project-note { margin: 10px 0 0; font-size: 11px; color: #a45b35; line-height: 1.6; }
+.project-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 18px; }
+.project-actions .btn { font-size: 12px; padding: 9px 15px; }
+.project-text-link { appearance: none; background: none; border: 0; padding: 5px 0; margin: 0; color: #746b62; font: inherit; font-size: 12px; line-height: 1.6; cursor: pointer; text-decoration: none; }
+.project-text-link:hover { color: #a4471d; text-decoration: underline; text-underline-offset: 4px; }
+.project-preview { display: block; min-width: 0; aspect-ratio: 2 / 1; overflow: hidden; border-radius: 12px; background: #eceae5; }
+.project-preview.screenshot-card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; border: 0; border-radius: 0; box-shadow: none; }
+.project-row + .project-row { margin-top: 18px; }
+
+/* All competition image areas use the same height; Tencent keeps two images per column. */
+#competitionList { --competition-media-height: 380px; }
+#honors.section { padding-bottom: 0; }
+#patents.section { padding-top: 16px; }
+.competition-drawings { height: var(--competition-media-height); align-items: stretch; }
+.competition-drawings .drawing-a0 { height: 100%; max-height: none; width: auto; object-fit: contain; }
+#competition-tencent .competition-drawing-column { flex: 0 0 min(100%, 310px); min-width: 0; height: 100%; display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; }
+#competition-tencent .drawing-a0 { display: block; width: 100%; height: 100%; min-height: 0; max-height: none; }
+.competition-info { flex: 1 0 auto; }
 .competition-links { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12px; color: #b34d1e; }
 .competition-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.project-row + .project-row { margin-top: 22px; }
+@media (max-width: 760px) {
+ #urban .project-row { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 18px; }
+ .project-preview { grid-row: 1; }
+ .project-copy { padding: 0 2px 2px; }
+ .project-copy h3 { font-size: 20px; }
+ .project-description { max-width: none; }
+}
 @media (max-width: 560px) {
  .cast-recognition { font-size: 14px; }
  .scholar-inline { gap: 5px 8px; font-size: 11px; }
  .scholar-inline strong { font-size: 13px; }
- .competition-drawings .drawing-a0 { max-height: 235px; }
+ #competitionList { --competition-media-height: 300px; }
+ .experience-panel { padding-inline: 16px; }
+ .experience-item { grid-template-columns: minmax(0, 1fr); gap: 7px; }
+ .experience-copy h3 { font-size: 15px; }
+ .experience-period { margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
  .scroll-ring::after { animation: none; }

@@ -62,6 +62,43 @@
   const search = $('#pubSearch');
   const count = $('#pubCount');
   const empty = $('#publicationEmpty');
+  const singleColumnPapers = window.matchMedia('(max-width: 760px)');
+  const automaticDetailStates = new WeakMap();
+
+  function setDetailOpen(detail, open) {
+    if (detail.open === open) return;
+    automaticDetailStates.set(detail, open);
+    detail.open = open;
+  }
+
+  // Pair the cards currently sharing a visible grid row, including filtered results.
+  function syncExpandedRows() {
+    if (singleColumnPapers.matches) return;
+    const visibleCards = cards.filter(card => !card.hidden);
+    for (let i = 0; i + 1 < visibleCards.length; i += 2) {
+      const left = $('.paper-details', visibleCards[i]);
+      const right = $('.paper-details', visibleCards[i + 1]);
+      const open = left.open || right.open;
+      setDetailOpen(left, open);
+      setDetailOpen(right, open);
+    }
+  }
+
+  cards.forEach(card => {
+    const detail = $('.paper-details', card);
+    detail.addEventListener('toggle', () => {
+      const automatic = automaticDetailStates.has(detail) &&
+        automaticDetailStates.get(detail) === detail.open;
+      automaticDetailStates.delete(detail);
+      if (automatic || card.hidden || singleColumnPapers.matches) return;
+      const visibleCards = cards.filter(item => !item.hidden);
+      const position = visibleCards.indexOf(card);
+      const partner = visibleCards[position % 2 === 0 ? position + 1 : position - 1];
+      if (partner) setDetailOpen($('.paper-details', partner), detail.open);
+    });
+  });
+  singleColumnPapers.addEventListener('change', syncExpandedRows);
+
   const normalize = value => String(value || '').normalize('NFKC').toLowerCase().trim();
   const index = new Map(cards.map(card => [card, normalize(`${card.dataset.search || ''} ${card.textContent}`)]));
   let activeFilter = 'All';
@@ -78,6 +115,7 @@
     });
     count.textContent = String(visible);
     empty.hidden = visible !== 0;
+    syncExpandedRows();
   }
   chips.forEach(chip => chip.addEventListener('click', () => {
     activeFilter = chip.dataset.filter;
