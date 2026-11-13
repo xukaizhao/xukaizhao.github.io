@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="112" viewBox="0 0 320 112" role="img" aria-label="ACL — Association for Computational Linguistics">
+  <rect x="0" y="0" width="320" height="112" fill="#ffffff"/>
+  <text x="160" y="62" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Songti SC', serif" font-size="54" font-weight="700" letter-spacing="6" fill="#1b2b4b">ACL</text>
+  <line x1="42" y1="78" x2="278" y2="78" stroke="#1b2b4b" stroke-width="1.4"/>
+  <text x="160" y="97" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10.5" letter-spacing="1.4" fill="#4a5568">ASSOCIATION FOR COMPUTATIONAL LINGUISTICS</text>
+</svg>
